@@ -41,5 +41,6 @@ section {
 
 section>div {
   padding: 1px; /* hack */
-  box-sizing: content-box;
+  /*box-sizing: content-box;*/
+  width: 100%;
 }
