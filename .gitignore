@@ -1,0 +1,4 @@
+node_modules
+tmp
+examples/**/_ppt
+examples/**/*.html
