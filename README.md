@@ -12,8 +12,8 @@
 
 点击查看演示
 
-- <http://fritx.github.io/markppt/mytalk/>
-- <http://fritx.github.io/markppt/gulpeol/>
+- <http://fritx.github.io/markppt/mytalk/talk.md.html>
+- <http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.md.html>
 
 ```
 npm i -g markppt   # 从npm安装
@@ -28,11 +28,11 @@ markppt mytalk/talk.md   # markdown路径
   - talk.md
 ```
 
-生成`_ppt`文件夹，和一份`talk.md.html`，打开即可[浏览ppt](http://fritx.github.io/markppt/mytalk/)
+生成`ppt_`文件夹，和一份`talk.md.html`，打开即可[浏览ppt](http://fritx.github.io/markppt/mytalk/talk.md.html)
 
 ```
 - mytalk/
-  - _ppt/ (√)
+  - ppt_/ (√)
   - Desert.jpg
   - talk.md
   - talk.md.html (√)

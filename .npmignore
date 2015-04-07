@@ -1,4 +1,4 @@
 tmp
-examples/**/_ppt
+examples/**/ppt_
 examples/**/*.html
-examples/gulp-eol-bug
+examples/gulpeol

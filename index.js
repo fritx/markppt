@@ -15,11 +15,11 @@ function build(src) {
   out = [
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width">',
-    '<link rel="stylesheet" href="_ppt/animate.min.css">',
-    '<link rel="stylesheet" href="_ppt/ppt.css">',
+    '<link rel="stylesheet" href="ppt_/animate.min.css">',
+    '<link rel="stylesheet" href="ppt_/ppt.css">',
     out,
-    '<script src="_ppt/jquery.min.js"></script>',
-    '<script src="_ppt/ppt.js"></script>'
+    '<script src="ppt_/jquery.min.js"></script>',
+    '<script src="ppt_/ppt.js"></script>'
   ].join('\n')
 
   var dir = path.dirname(src)
