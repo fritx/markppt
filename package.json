@@ -1,13 +1,13 @@
 {
   "name": "markppt",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": "git@github.com:frtix/markppt.git",
   "main": "index.js",
   "bin": {
-    "mark": "bin/cli.js"
+    "markppt": "bin/cli.js"
   },
   "scripts": {
-    "test": "mocha"  
+    "test": "mocha"
   },
   "dependencies": {
     "domino": "^1.0.18",
