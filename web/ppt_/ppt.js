@@ -33,13 +33,13 @@ function init() {
 }
 
 function style() {
-  var max = 256
-  var range = 50
+  var max = 255
+  var range = 30
   $secs.each(function(i, sec){ // 每页随机着浅色
     var colors = [
-      max-range*(1-Math.random()) | 0,
-      max-range*(1-Math.random()) | 0,
-      max-range*(1-Math.random()) | 0
+      max - (Math.random()*range | 0),
+      max - (Math.random()*range | 0),
+      max - (Math.random()*range | 0)
     ]
     $(sec).css({
       'background-color': 'rgb('+ colors.join(',') +')'
