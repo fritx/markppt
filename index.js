@@ -1,7 +1,7 @@
 var marked = require('marked')
-var cheerio = require('cheerio')
-//var domino = require('domino')
-//var Zepto = require('zepto-node')
+//var cheerio = require('cheerio')
+var domino = require('domino')
+var Zepto = require('zepto-node')
 var fs = require('fs-extra')
 var path = require('path')
 
@@ -11,6 +11,7 @@ exports.build = build
 function build(src) {
   var basename = path.basename(src)
   var text = fs.readFileSync(src).toString()
+  text = text.trim() // 移除前后的空白/异常字符
   var out = transfer(text)
   out = [
     '<meta charset="utf-8">',
@@ -27,6 +28,8 @@ function build(src) {
   fs.writeFileSync(path.resolve(dir, basename + '.html'), out)
 }
 
+// 使用cheerio 但是中文在html中转义 不可读
+/*
 function transfer(text) {
   var out = marked(text)
   var $ = cheerio.load(out)
@@ -48,9 +51,10 @@ function transfer(text) {
 
   return $tmp.html()
 }
+*/
 
-/*
-function transfer1(text) {
+// 使用zepto-node 速度较cheerio慢
+function transfer(text) {
   var out = marked(text)
   var window = domino.createWindow()
   var $ = Zepto(window)
@@ -83,4 +87,3 @@ function transfer1(text) {
     $('<section>').append($inner).appendTo($list)
   }
 }
-*/

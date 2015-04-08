@@ -10,9 +10,10 @@
     "test": "mocha"  
   },
   "dependencies": {
-    "cheerio": "^0.19.0",
+    "domino": "^1.0.18",
     "fs-extra": "^0.18.0",
-    "marked": "^0.3.3"
+    "marked": "^0.3.3",
+    "zepto-node": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "^2.2.1"
