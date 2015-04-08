@@ -1,9 +1,8 @@
-// 为了方便 重写fn.show/hide
 // 使用visibility属性 实现占位
-$.fn.show = function(){
+$.fn.vshow = function(){
   return $(this).css('visibility', 'visible')
 }
-$.fn.hide = function(){
+$.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
@@ -23,25 +22,24 @@ function init() {
     }
   })
 
-  clear() // 清除全部
-  show(0) // 显示首页
   window.onload = function(){
     $(window).on('resize', layout)
     style() // 装饰
     layout() // 布局
     layout() // hack 再次调用
-    $('body>div').show()
+    clear() // 清除全部
+    show(0) // 显示首页
   }
 }
 
 function style() {
-  var max = 256
-  var range = 50
+  var max = 255
+  var range = 30
   $secs.each(function(i, sec){ // 每页随机着浅色
     var colors = [
-      max-range*(1-Math.random()) | 0,
-      max-range*(1-Math.random()) | 0,
-      max-range*(1-Math.random()) | 0
+      max - (Math.random()*range | 0),
+      max - (Math.random()*range | 0),
+      max - (Math.random()*range | 0)
     ]
     $(sec).css({
       'background-color': 'rgb('+ colors.join(',') +')'
@@ -101,11 +99,11 @@ function go(step) {
   current = next
 }
 function clear() {
-  $secs.hide().css('z-index', 0).removeClass('animated zoomInUp zoomOutDown')
+  $secs.vhide().css('z-index', 0).removeClass('animated zoomInUp zoomOutDown')
 }
 function show(index) {
-  $secs.eq(index).css('z-index', 2).addClass('animated zoomInUp').show()
+  $secs.eq(index).css('z-index', 2).addClass('animated zoomInUp').vshow()
 }
 function hide(index) {
-  $secs.eq(index).css('z-index', 3).addClass('animated zoomOutDown').show()
+  $secs.eq(index).css('z-index', 3).addClass('animated zoomOutDown').vshow()
 }

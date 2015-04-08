@@ -2,52 +2,52 @@
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="ppt_/animate.min.css">
 <link rel="stylesheet" href="ppt_/ppt.css">
-<div><section><div><h1 id="gulp-eol-bug-">gulp-eol bug&#x4FEE;&#x590D;&#x4E4B;&#x603B;&#x7ED3;</h1><p><em>2014-09-06</em></p></div></section><section><div><h2 id="-">&#x80CC;&#x666F;</h2><p><a href="https://github.com/fritx/gulp-eol">gulp-eol</a>&#x662F;&#x6211;&#x4E4B;&#x524D;&#x5199;&#x7684;&#x4E00;&#x4E2A;gulp&#x63D2;&#x4EF6;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x7EDF;&#x4E00;&#x6587;&#x4EF6;&#x7684;&#x6362;&#x884C;&#x7B26;&#x3002;</p><p>&#x4ECA;&#x65E9;&#x6253;&#x5F00;github&#xFF0C;&#x53D1;&#x73B0;&#x4E00;&#x4FC4;&#x56FD;&#x4EBA;&#x8DD1;&#x6765;&#x6211;&#x8FD9;&#x5F00;<a href="https://github.com/fritx/gulp-eol/issues/1">issue</a>&#xFF0C;&#x8BF4;&#x662F;&#x590D;&#x5236;/&#x8F6C;&#x79FB;&#x6587;&#x4EF6;&#x65F6;&#xFF0C;&#x63D2;&#x4EF6;&#x5931;&#x6548;&#x4E86;&#xFF0C;&#x8FD8;&#x8D34;&#x51FA;&#x4E86;&#x4ED6;&#x7684;gulpfile&#x3002;</p><p><img width="260" src="bug/notification.png"></p><p>&#x4E0B;&#x5348;happy&#x5B8C;&#x56DE;&#x6765;&#xFF0C;&#x53D1;&#x73B0;&#x662F;&#x81EA;&#x5DF1;&#x7A0B;&#x5E8F;&#x7684;bug&#xFF0C;&#x4FEE;&#x590D;&#x540E;&#x53D1;&#x5E03;&#xFF0C;&#x5E76;&#x544A;&#x77E5;&#x4E8B;&#x4E3B;<a href="https://github.com/truetamtam">@truetamtam</a>&#x786E;&#x8BA4;&#xFF0C;tam&#x5F88;&#x5FEB;&#x8BF4;&#x95EE;&#x9898;&#x89E3;&#x51B3;&#x4E86;&#xFF0C;&#x7686;&#x5927;&#x6B22;&#x559C;&#x3002;</p></div></section><section><div><h2 id="-">&#x6211;&#x60F3;&#x8BF4;</h2><p>&#x51E1;&#x4E8B;&#x90FD;&#x5E94;<strong>&#x4EE5;&#x5C0F;&#x89C1;&#x5927;</strong>&#xFF0C;&#x8FD9;&#x6837;&#x624D;&#x80FD;&#x8FDB;&#x6B65;&#x6210;&#x957F;&#x3002;&#x6211;&#x5217;&#x51FA;&#x4E86;7&#x70B9;&#xFF0C;&#x4E0D;&#x591A;&#x3002;</p></div></section><section><div><h3 id="1-">1. &#x7C97;&#x5FC3;&#x5927;&#x610F;</h3><p>&#x6B64;bug&#x4E43;&#x4F4E;&#x7EA7;&#x9519;&#x8BEF;&#xFF1A;</p><pre><code class="lang-js">str = str.replace(/\r?\n/g, eol);
+<div><section><div><h1 id="gulp-eol-bug-">gulp-eol bug修复之总结</h1><p><em>2014-09-06</em></p></div></section><section><div><h2 id="-">背景</h2><p><a href="https://github.com/fritx/gulp-eol">gulp-eol</a>是我之前写的一个gulp插件，主要用于统一文件的换行符。</p><p>今早打开github，发现一俄国人跑来我这开<a href="https://github.com/fritx/gulp-eol/issues/1">issue</a>，说是复制/转移文件时，插件失效了，还贴出了他的gulpfile。</p><p><img width="260" src="bug/notification.png"></p><p>下午happy完回来，发现是自己程序的bug，修复后发布，并告知事主<a href="https://github.com/truetamtam">@truetamtam</a>确认，tam很快说问题解决了，皆大欢喜。</p></div></section><section><div><h2 id="-">我想说</h2><p>凡事都应<strong>以小见大</strong>，这样才能进步成长。我列出了7点，不多。</p></div></section><section><div><h3 id="1-">1. 粗心大意</h3><p>此bug乃低级错误：</p><pre><code class="lang-js">str = str.replace(/\r?\n/g, eol);
 if (append &amp;&amp; !(
-  new RegExp(eol + &apos;$&apos;).test(str))
+  new RegExp(eol + '$').test(str))
   ) {
   // this statement should be always executed
   // but not remained here
   file.contents = new Buffer(str + eol);
 }
-</code></pre><p>&#x6211;&#x9519;&#x5C06;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x7684;&#x8D4B;&#x503C;&#x903B;&#x8F91;&#x653E;&#x5165;&#x4E86;<code>if(){}</code>&#x4E2D;&#xFF0C;&#x52A0;&#x4E4B;&#x6D4B;&#x8BD5;&#x8986;&#x76D6;&#x4E0D;&#x5168;&#xFF0C;&#x5BFC;&#x81F4;bug&#x57CB;&#x85CF;&#x8BB8;&#x4E45;&#x3002;</p></div></section><section><div><h3 id="2-">2. &#x5FC3;&#x5B58;&#x611F;&#x6FC0;</h3><p>&#x6574;&#x4E2A;issue&#x4E0B;&#x6765;&#xFF0C;&#x5171;6&#x6B21;&#x53D1;&#x8A00;&#xFF0C;&#x6211;&#x548C;tam&#x5404;3&#x6B21;&#x3002;&#x6211;&#x4EEC;&#x7684;&#x53D1;&#x8A00;&#x57FA;&#x672C;&#x4E0A;&#x90FD;&#x5E26;&#x6709;&#x611F;&#x8C22;&#x6216;&#x53CB;&#x597D;&#x3002;&#x867D;&#x7136;&#x8FD9;&#x5927;&#x591A;&#x65F6;&#x5019;&#x53EA;&#x662F;&#x4E00;&#x79CD;&#x793C;&#x8282;&#xFF0C;&#x4F46;&#x6211;&#x76F8;&#x4FE1;&#x5927;&#x5BB6;&#x90FD;&#x662F;&#x4E00;&#x6837;&#xFF0C;&#x53D1;&#x81EA;&#x5185;&#x5FC3;&#x5730;&#x4EAB;&#x53D7;&#x53CB;&#x7231;&#x548C;&#x4E92;&#x52A9;&#x3002;</p><p>&#x6211;&#x751A;&#x81F3;&#x5728;<a href="https://github.com/fritx/gulp-eol/commit/86018672a37cfaa49ebb7f7c20bf9136b0add43a">&#x4EE3;&#x7801;&#x66F4;&#x65B0;</a>&#x4E2D;&#x201C;&#x6177;&#x6168;&#x6FC0;&#x6602;&#x201D;&#x5730;&#x9053;&#x8C22;&#xFF1A;</p><p><img width="380" src="bug/thanks.png"></p></div></section><section><div><h3 id="3-">3. &#x660E;&#x4E8E;&#x5C55;&#x793A;</h3><blockquote>
+</code></pre><p>我错将一个关键的赋值逻辑放入了<code>if(){}</code>中，加之测试覆盖不全，导致bug埋藏许久。</p></div></section><section><div><h3 id="2-">2. 心存感激</h3><p>整个issue下来，共6次发言，我和tam各3次。我们的发言基本上都带有感谢或友好。虽然这大多时候只是一种礼节，但我相信大家都是一样，发自内心地享受友爱和互助。</p><p>我甚至在<a href="https://github.com/fritx/gulp-eol/commit/86018672a37cfaa49ebb7f7c20bf9136b0add43a">代码更新</a>中“慷慨激昂”地道谢：</p><p><img width="380" src="bug/thanks.png"></p></div></section><section><div><h3 id="3-">3. 明于展示</h3><blockquote>
 <p>Talk is cheap, show me the code!</p>
-</blockquote><p>&#x76F8;&#x4FE1;&#x5927;&#x5BB6;&#x90FD;&#x77E5;&#x9053;&#x8FD9;&#x53E5;it&#x754C;&#x7684;&#x540D;&#x8A00;&#xFF0C;&#x53E3;&#x8BF4;&#x65E0;&#x51ED;&#xFF0C;&#x5F88;&#x591A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7528;&#x4EE3;&#x7801;&#x3001;&#x7528;&#x5B9E;&#x4F8B;&#x6765;&#x8BF4;&#x660E;&#x95EE;&#x9898;&#x3002;&#x5728;&#x8FD9;&#x4E00;&#x70B9;&#x4E0A;&#xFF0C;&#x6211;&#x548C;tam&#x90FD;&#x662F;&#x505A;&#x7684;&#x4E0D;&#x9519;&#x7684;&#xFF1A;</p><ul>
-<li>&#x95EE;&#x9898;&#x63D0;&#x51FA;&#x65F6;&#xFF0C;&#x4ED6;&#x8D34;&#x4E0A;&#x4E86;gulpfile&#xFF0C;&#x4FBF;&#x4E8E;&#x6211;&#x5BF9;&#x73AF;&#x5883;&#x7684;&#x4E86;&#x89E3;</li>
-<li>bug&#x521D;&#x6B65;&#x786E;&#x5B9A;&#x65F6;&#xFF0C;&#x6211;&#x7ED9;&#x51FA;&#x4E86;&#x7B80;&#x77ED;&#x7684;&#x6E90;&#x7801;&#x6CE8;&#x89E3;&#xFF08;&#x540C;1.&#xFF09;&#xFF0C;&#x8868;&#x8FBE;&#x4E86;&#x81EA;&#x5DF1;&#x7684;&#x5224;&#x65AD;</li>
-</ul></div></section><section><div><h3 id="4-">4. &#x5DE7;&#x4E8E;&#x5F15;&#x7528;</h3><p><img width="320" src="bug/reference.png"></p><p>bug&#x4FEE;&#x590D;&#x540E;&#xFF0C;&#x5728;&#x63D0;&#x4EA4;&#x63CF;&#x8FF0;&#x4E2D;&#x63D0;&#x53CA;issue&#x7684;&#x7F16;&#x53F7;&#xFF0C;&#x5982;&quot;#1&quot;&#xFF0C;issue&#x9875;&#x4F1A;&#x53CA;&#x65F6;&#x5730;&#x8FFD;&#x52A0;&#x4E00;&#x6761;&#x6807;&#x7B7E;&#x3002;&#x867D;&#x7136;&#x8FD9;&#x53EA;&#x662F;github&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x4F46;&#x5B83;&#x53D1;&#x6325;&#x7740;&#x5173;&#x952E;&#x4F5C;&#x7528;&#xFF1A;</p><ul>
-<li>&#x901A;&#x77E5;&#xFF1A;&#x53CA;&#x65F6;&#x660E;&#x786E;&#x5730;&#x5C55;&#x793A;&#x63D0;&#x4EA4;&#x63CF;&#x8FF0;</li>
-<li>&#x5173;&#x8054;&#xFF1A;&#x7CBE;&#x786E;&#x94FE;&#x63A5;&#x5230;&#x5177;&#x4F53;&#x7684;&#x4EE3;&#x7801;&#x6539;&#x52A8;</li>
-<li>&#x7B80;&#x660E;&#xFF1A;&#x5C31;&#x5177;&#x4F53;&#x7684;&#x4EE3;&#x7801;&#x6539;&#x52A8;&#xFF0C;&#x4F60;&#x5DF2;&#x65E0;&#x9700;&#x989D;&#x5916;&#x53D1;&#x8A00;&#x9610;&#x8FF0;</li>
-</ul><p>&#x53E6;&#x5916;&#xFF0C;&#x6211;&#x7528;&#x4E86;&quot;for #1&quot;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&quot;fix #1&quot;&#x3002;&#x56E0;&#x4E3A;&#x6B64;bug&#x4E0E;&#x4E8B;&#x4E3B;&#x7684;&#x5B9E;&#x4F8B;&#x5E76;&#x65E0;&#x7EDD;&#x5BF9;&#x8054;&#x7CFB;&#xFF0C;&#x5F53;&#x65F6;&#x53EA;&#x662F;&#x521D;&#x6B65;&#x5224;&#x5B9A;&#xFF0C;&#x7528;&quot;for&quot;&#x53EF;&#x4EE5;&#x5728;&#x5F15;&#x7528;issue&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x4E0D;close&#x6389;&#x5B83;&#x3002;</p></div></section><section><div><h3 id="5-">5. &#x582A;&#x79F0;&#x5178;&#x8303;</h3><blockquote>
-<p>&#x6574;&#x4E2A;issue&#x4E0B;&#x6765;&#xFF0C;&#x5171;6&#x6B21;&#x53D1;&#x8A00;&#xFF0C;&#x6211;&#x548C;tam&#x5404;3&#x6B21;</p>
-</blockquote><p>&#x662F;&#x7684;&#xFF0C;&#x52A0;&#x4E0A;3&#x6B21;&#x64CD;&#x4F5C;&#xFF0C;&#x5171;9&#x6B65;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x6765;&#x56DE;&#x987E;&#x4E00;&#x4E0B;&#xFF1A;</p><ol>
-<li>tam&#xFF1A;&#x63D0;&#x51FA;&#x95EE;&#x9898;&#xFF0C;&#x8D34;&#x51FA;&#x5B9E;&#x4F8B;</li>
-<li>&#x6211;&#xFF1A;&#x8868;&#x793A;&#x8FDF;&#x70B9;&#x56DE;&#x5E94;&#xFF0C;&#x611F;&#x8C22;</li>
-<li>&#x6211;&#xFF1A;&#xFF08;&#x53D1;&#x73B0;&#x6709;bug&#xFF0C;&#x8D34;&#x4E0A;bug&#x6807;&#x7B7E;&#xFF09;</li>
-<li>&#x6211;&#xFF1A;&#x8868;&#x793A;&#x5DF2;&#x6709;&#x521D;&#x6B65;&#x5224;&#x5B9A;&#xFF0C;&#x8D34;&#x51FA;&#x6CE8;&#x89E3;&#xFF0C;&#x9884;&#x544A;&#x66F4;&#x65B0;&#xFF0C;&#x611F;&#x8C22;</li>
-<li>tam&#xFF1A;&#x9177;&#xFF0C;&#x611F;&#x8C22;</li>
-<li>&#x6211;&#xFF1A;&#xFF08;&#x63D0;&#x4EA4;&#x66F4;&#x65B0;&#xFF0C;&#x5F15;&#x7528;issue&#xFF09;</li>
-<li>&#x6211;&#xFF1A;&#x544A;&#x77E5;&#x5DF2;&#x53D1;&#x5E03;&#xFF0C;&#x8981;&#x6C42;&#x786E;&#x8BA4;</li>
-<li>tam&#xFF1A;&#x8868;&#x793A;&#x786E;&#x8BA4;&#xFF0C;&#x611F;&#x8C22;</li>
-<li>tam&#xFF1A;&#xFF08;&#x5173;&#x95ED;issue&#xFF09;</li>
-</ol><p><img width="260" src="bug/close.png"></p><p>&#x522B;&#x770B;&#x8FD9;&#x533A;&#x533A;&#x5C0F;issue&#xFF0C;&#x5B83;&#x5305;&#x62EC;&#x4E86;&#x627C;&#x8981;&#x7684;&#x8868;&#x8FBE;&#x3001;&#x7CBE;&#x51C6;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5305;&#x62EC;&#x4E86;&#xFF1A;</p><ol>
-<li>&#x63D0;&#x51FA;&#x8BAE;&#x9898;&#xFF0C;&#x63CF;&#x8FF0;&#x95EE;&#x9898;</li>
-<li>&#x521D;&#x6B65;&#x56DE;&#x5E94;</li>
-<li>&#x95EE;&#x9898;&#x5206;&#x7C7B;&#x786E;&#x5B9A;</li>
-<li>&#x75C7;&#x7ED3;&#x786E;&#x5B9A;&#x548C;&#x63CF;&#x8FF0;</li>
-<li>&#x9884;&#x544A;&#x66F4;&#x65B0;</li>
-<li>&#x66F4;&#x65B0;&#x63D0;&#x4EA4;&#x548C;&#x63CF;&#x8FF0;</li>
-<li>&#x66F4;&#x65B0;&#x544A;&#x77E5;&#xFF0C;&#x8981;&#x6C42;&#x786E;&#x8BA4;</li>
-<li>&#x95EE;&#x9898;&#x89E3;&#x51B3;&#x786E;&#x8BA4;</li>
-<li>&#x5173;&#x95ED;&#x8BAE;&#x9898;</li>
-</ol><p>&#x8FD9;&#x7B80;&#x76F4;&#x5C31;&#x662F;issue&#x7684;&#x6807;&#x6746;&#x3001;&#x6A21;&#x677F;&#x4E0E;&#x5178;&#x8303;&#x3002;&#x611F;&#x8C22;tam&#x7684;&#x914D;&#x5408;&#x3002;</p></div></section><section><div><h3 id="6-">6. &#x731C;&#x60F3;&#x6210;&#x7ACB;</h3><p>&#x4E4B;&#x524D;&#x63A5;&#x89E6;grunt/gulp&#x8FD9;&#x6279;&#x65B0;&#x5174;&#x7684;&#x6784;&#x5EFA;&#x5DE5;&#x5177;&#xFF0C;&#x89C1;&#x8BC6;&#x4E86;&#x7433;&#x7405;&#x6EE1;&#x76EE;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x52A0;&#x4E4B;web&#x5F00;&#x53D1;&#x8005;&#x7684;&#x51B2;&#x52B2;&#x6709;&#x76EE;&#x5171;&#x7779;&#xFF0C;&#x6709;&#x4E86;&#x4EE5;&#x4E0B;&#x731C;&#x60F3;&#xFF1A;</p><ul>
-<li>&#x590D;&#x5236;/&#x7F16;&#x8BD1;/&#x538B;&#x7F29;/&#x6D4B;&#x8BD5;&#xFF0C;&#x8FD8;&#x6709;&#x4EC0;&#x4E48;gulp&#x4E0D;&#x80FD;&#x505A;&#xFF1F;</li>
-<li>gulp&#x80FD;&#x505A;&#x5F88;&#x591A;&#xFF0C;&#x5C06;&#x5B58;&#x5728;&#x4E0D;&#x5C11;&#x672A;&#x5F00;&#x53D1;&#x751A;&#x81F3;&#x672A;&#x77E5;&#x7684;&#x63D2;&#x4EF6;</li>
-<li>&#x53D1;&#x73B0;&#x5E76;&#x5F00;&#x53D1;&#x51FA;&#x6765;&#xFF0C;&#x6709;&#x7C7B;&#x4F3C;&#x9700;&#x6C42;&#x7684;&#x4EBA;&#x4F1A;&#x4E3B;&#x52A8;&#x6765;&#x524D;&#x6765;&#x4F7F;&#x7528;</li>
-</ul><p>&#x77ED;&#x77ED;&#x51E0;&#x884C;&#x4EE3;&#x7801;&#xFF0C;gulp-eol&#x5199;&#x597D;&#x53D1;&#x5E03;&#xFF0C;&#x672A;&#x4F5C;&#x4EFB;&#x4F55;&#x63A8;&#x5E7F;&#xFF0C;&#x81EA;&#x5DF1;&#x6CA1;&#x7528;&#x51E0;&#x6B21;&#xFF0C;&#x51E0;&#x4E2A;&#x6708;&#x540E;&#x7ADF;&#x6709;&#x4EBA;&#x201C;&#x81EA;&#x6295;&#x7F57;&#x7F51;&#x201D;&#x3002;&#x4E8B;&#x5B9E;&#x8BC1;&#x660E;&#xFF0C;&#x6211;&#x7684;&#x731C;&#x60F3;&#x662F;&#x5BF9;&#x7684;&#x3002;</p><p><img width="500" src="bug/gulp-plugins.png"></p></div></section><section><div><h3 id="7-github">7. &#x5173;&#x4E8E;github</h3><p>&#x5728;&#x540C;&#x5B66;&#x4E4B;&#x4E2D;&#xFF0C;<a href="https://github.com/fritx">&#x6211;&#x5728;github</a>&#x4E0A;&#x7684;&#x6D3B;&#x8DC3;&#x5EA6;&#x548C;&#x201C;&#x529F;&#x7EE9;&#x201D;&#x5E94;&#x5C5E;&#x6700;&#x4F73;&#x3002;&#x8FD9;&#x5F97;&#x76CA;&#x4E8E;web&#x5F00;&#x53D1;&#x8005;&#xFF08;&#x5C24;&#x5176;&#x662F;web&#x524D;&#x7AEF;&#xFF09;&#x4E00;&#x8D2F;&#x7684;&#x5F00;&#x6E90;&#x6C1B;&#x56F4;&#x3002;</p><p>&#x4EE5;&#x524D;&#x662F;&#x6211;&#x627E;&#x8001;&#x5916;&#xFF0C;&#x63D0;issue&#xFF0C;&#x73B0;&#x5728;&#x4E5F;&#x9010;&#x6E10;&#x53D8;&#x6210;&#x4E86;&#x4ED6;&#x4EEC;&#x627E;&#x6211;&#x3002;&#x975E;&#x5E38;&#x4EAB;&#x53D7;&#x8DDF;&#x4ED6;&#x4EEC;&#x4E00;&#x8D77;&#x4EA4;&#x6D41;&#x5B66;&#x4E60;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x4E0E;&#x56FD;&#x4EBA;&#x3001;&#x540C;&#x5B66;&#x4E5F;&#x662F;&#x4E00;&#x6837;&#x3002;</p><p>github&#x80FD;&#x7ED9;&#x4F60;&#x4EE5;&#x201C;&#x865A;&#x8363;&#x201D;&#xFF1A;</p><ul>
-<li>&#x201C;&#x563F;&#xFF0C;npm&#x6392;&#x884C;&#x7B2C;2&#x7684;aysnc&#x5E93;&#xFF0C;&#x6211;&#x53EF;&#x662F;<a href="https://github.com/caolan/async/graphs/contributors">top6/89</a>&#x7684;&#x8D21;&#x732E;&#x8005;&#x3002;&#x201D;</li>
-<li>&#x201C;&#x7528;&#x8FC7;zepto&#xFF1F;&#x201D; &#x201C;&#x4E0D;&#x4F46;&#x7528;&#x8FC7;&#xFF0C;&#x8FD8;&#x53C2;&#x4E0E;&#x5F00;&#x53D1;&#xFF0C;<a href="https://github.com/madrobby/zepto/graphs/contributors">top68/151</a>&#x3002;&#x201D;</li>
-</ul><p>github&#x867D;&#x4E0D;&#x662F;&#x5168;&#x90E8;&#xFF0C;&#x4F46;&#x4E5F;&#x662F;&#x4E00;&#x79CD;&#x89D2;&#x5EA6;&#x3002;&#x636E;&#x6211;&#x6240;&#x77E5;&#xFF0C;&#x4E0D;&#x5C11;it&#x516C;&#x53F8;&#xFF0C;&#x5305;&#x62EC;&#x6211;&#x4EEC;&#x516C;&#x53F8;&#xFF0C;&#x90FD;&#x975E;&#x5E38;&#x91CD;&#x89C6;&#x5E94;&#x8058;&#x8005;&#x7684;github&#x3002;&#x591A;&#x70B9;&#x4F7F;&#x7528;github&#xFF0C;&#x5C3D;&#x53EF;&#x80FD;&#x5F00;&#x91C7;&#x5B83;&#x7684;&#x529F;&#x80FD;&#x5427;&#x3002;Just for fun!</p></div></section><section><div><h2 id="-">&#x7ED3;&#x8BED;</h2><p>&#x60F3;&#x63D0;&#x5347;<strong>&#x5439;&#x725B;&#x6280;&#x827A;</strong>&#x7684;&#x53EF;&#x4EE5;&#x8054;&#x7CFB;&#x672C;&#x4EBA;&#x3002;</p><p>&#x6CE8;&#x610F;&#xFF0C;&#x5168;&#x6587;&#x5E76;&#x672A;&#x63D0;&#x53CA;&#x201C;&#x88C5;B&#x201D;&#x4E8C;&#x5B57;&#x3002;</p></div></section></div>
+</blockquote><p>相信大家都知道这句it界的名言，口说无凭，很多时候我们需要用代码、用实例来说明问题。在这一点上，我和tam都是做的不错的：</p><ul>
+<li>问题提出时，他贴上了gulpfile，便于我对环境的了解</li>
+<li>bug初步确定时，我给出了简短的源码注解（同1.），表达了自己的判断</li>
+</ul></div></section><section><div><h3 id="4-">4. 巧于引用</h3><p><img width="320" src="bug/reference.png"></p><p>bug修复后，在提交描述中提及issue的编号，如"#1"，issue页会及时地追加一条标签。虽然这只是github一个简单的功能，但它发挥着关键作用：</p><ul>
+<li>通知：及时明确地展示提交描述</li>
+<li>关联：精确链接到具体的代码改动</li>
+<li>简明：就具体的代码改动，你已无需额外发言阐述</li>
+</ul><p>另外，我用了"for #1"，而不是"fix #1"。因为此bug与事主的实例并无绝对联系，当时只是初步判定，用"for"可以在引用issue的同时，不close掉它。</p></div></section><section><div><h3 id="5-">5. 堪称典范</h3><blockquote>
+<p>整个issue下来，共6次发言，我和tam各3次</p>
+</blockquote><p>是的，加上3次操作，共9步，让我们来回顾一下：</p><ol>
+<li>tam：提出问题，贴出实例</li>
+<li>我：表示迟点回应，感谢</li>
+<li>我：（发现有bug，贴上bug标签）</li>
+<li>我：表示已有初步判定，贴出注解，预告更新，感谢</li>
+<li>tam：酷，感谢</li>
+<li>我：（提交更新，引用issue）</li>
+<li>我：告知已发布，要求确认</li>
+<li>tam：表示确认，感谢</li>
+<li>tam：（关闭issue）</li>
+</ol><p><img width="260" src="bug/close.png"></p><p>别看这区区小issue，它包括了扼要的表达、精准的操作，包括了：</p><ol>
+<li>提出议题，描述问题</li>
+<li>初步回应</li>
+<li>问题分类确定</li>
+<li>症结确定和描述</li>
+<li>预告更新</li>
+<li>更新提交和描述</li>
+<li>更新告知，要求确认</li>
+<li>问题解决确认</li>
+<li>关闭议题</li>
+</ol><p>这简直就是issue的标杆、模板与典范。感谢tam的配合。</p></div></section><section><div><h3 id="6-">6. 猜想成立</h3><p>之前接触grunt/gulp这批新兴的构建工具，见识了琳琅满目的插件，加之web开发者的冲劲有目共睹，有了以下猜想：</p><ul>
+<li>复制/编译/压缩/测试，还有什么gulp不能做？</li>
+<li>gulp能做很多，将存在不少未开发甚至未知的插件</li>
+<li>发现并开发出来，有类似需求的人会主动来前来使用</li>
+</ul><p>短短几行代码，gulp-eol写好发布，未作任何推广，自己没用几次，几个月后竟有人“自投罗网”。事实证明，我的猜想是对的。</p><p><img width="500" src="bug/gulp-plugins.png"></p></div></section><section><div><h3 id="7-github">7. 关于github</h3><p>在同学之中，<a href="https://github.com/fritx">我在github</a>上的活跃度和“功绩”应属最佳。这得益于web开发者（尤其是web前端）一贯的开源氛围。</p><p>以前是我找老外，提issue，现在也逐渐变成了他们找我。非常享受跟他们一起交流学习。当然，与国人、同学也是一样。</p><p>github能给你以“虚荣”：</p><ul>
+<li>“嘿，npm排行第2的aysnc库，我可是<a href="https://github.com/caolan/async/graphs/contributors">top6/89</a>的贡献者。”</li>
+<li>“用过zepto？” “不但用过，还参与开发，<a href="https://github.com/madrobby/zepto/graphs/contributors">top68/151</a>。”</li>
+</ul><p>github虽不是全部，但也是一种角度。据我所知，不少it公司，包括我们公司，都非常重视应聘者的github。多点使用github，尽可能开采它的功能吧。Just for fun!</p></div></section><section><div><h2 id="-">结语</h2><p>想提升<strong>吹牛技艺</strong>的可以联系本人。</p><p>注意，全文并未提及“装B”二字。</p></div></section></div>
 <script src="ppt_/jquery.min.js"></script>
 <script src="ppt_/ppt.js"></script>
