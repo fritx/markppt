@@ -2,6 +2,9 @@
 
 项目源码 <https://github.com/fritx/markppt>
 
+<img width="140" src="screenshots/2015-04-11 02.09.47.png">
+&nbsp;&nbsp;<img width="403" src="screenshots/2015-04-10 23.17.37.png">
+
 ## 一篇markdown，一份ppt。
 
 - 一个读取markdown文件，生成网页幻灯片(即ppt)的工具
@@ -16,8 +19,8 @@
 - <http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.md.html>
 
 ```
-npm i -g markppt   # 从npm安装
-markppt mytalk/talk.md   # markdown路径
+$ npm i -g markppt   # 从npm安装
+$ markppt mytalk/talk.md   # markdown路径
 ```
 
 将会在[原目录](https://github.com/fritx/markppt/tree/master/examples/mytalk/)
