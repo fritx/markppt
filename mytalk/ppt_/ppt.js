@@ -63,7 +63,11 @@ function layout() {
       if (h > H/(1.5-.45)) { // 内容高度超出范围 需缩放
         $div.css({
           'top': 100*.5 + '%',
-          '-webkit-transform': 'scale('+ H/h +')'
+          '-webkit-transform': 'scale('+ H/h +')',
+          '-moz-transform': 'scale('+ H/h +')',
+          '-ms-transform': 'scale('+ H/h +')',
+          '-o-transform': 'scale('+ H/h +')',
+          'transform': 'scale('+ H/h +')'
         })
       }
     })
@@ -81,7 +85,11 @@ function layout() {
       if (h > H/(1.5-.47)) { // 内容高度超出范围 需缩放
         $div.css({
           'top': 100*.5 + '%',
-          '-webkit-transform': 'scale('+ H/h +')'
+          '-webkit-transform': 'scale('+ H/h +')',
+          '-moz-transform': 'scale('+ H/h +')',
+          '-ms-transform': 'scale('+ H/h +')',
+          '-o-transform': 'scale('+ H/h +')',
+          'transform': 'scale('+ H/h +')'
         })
       }
     })
