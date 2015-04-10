@@ -6,7 +6,10 @@
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  position: relative;
 }
 img {
   max-width: 100%;
@@ -19,6 +22,15 @@ img {
   box-sizing: border-box;
 }
 
+pre, table {
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+pre {
+  word-break: break-all;
+}
+
 body>div, section {
   position: absolute;
   top: 0;
@@ -26,11 +38,9 @@ body>div, section {
   left: 0;
   right: 0;
 }
-
 body>div {
   background-color: #f8f8f8;
 }
-
 section {
   visibility: hidden;
   font-family: "Microsoft Yahei";
