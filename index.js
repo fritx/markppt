@@ -1,26 +1,31 @@
-var marked = require('marked')
+//var marked = require('marked')
 //var cheerio = require('cheerio')
-var domino = require('domino')
-var Zepto = require('zepto-node')
+//var domino = require('domino')
+//var Zepto = require('zepto-node')
 var fs = require('fs-extra')
 var path = require('path')
 
-exports.transfer = transfer
+//exports.transfer = transfer
 exports.build = build
 
 function build(src) {
   var basename = path.basename(src)
-  var text = fs.readFileSync(src).toString()
-  text = text.trim() // 移除前后的空白/异常字符
-  var out = transfer(text)
-  out = [
+  var out = [
+  '<!doctype html>',
+  '<html>',
+  '<head>',
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width">',
     '<link rel="stylesheet" href="ppt_/animate.min.css">',
     '<link rel="stylesheet" href="ppt_/ppt.css">',
-    out,
+  '</head>',
+  '<body>',
+    '<script src="ppt_/marked.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
-    '<script src="ppt_/ppt.js"></script>'
+    '<script src="ppt_/ppt.js"></script>',
+    '<script>ppt.load(\''+ basename +'\')</script>',
+  '</body>',
+  '</html>'
   ].join('\n')
 
   var dir = path.dirname(src)
@@ -54,6 +59,7 @@ function transfer(text) {
 */
 
 // 使用zepto-node 速度较cheerio慢
+/*
 function transfer(text) {
   var out = marked(text)
   var window = domino.createWindow()
@@ -87,3 +93,4 @@ function transfer(text) {
     $('<section>').append($inner).appendTo($list)
   }
 }
+*/

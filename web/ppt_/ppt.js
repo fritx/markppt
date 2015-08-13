@@ -1,3 +1,5 @@
+;(function(){
+
 // 使用visibility属性 实现占位
 $.fn.vshow = function(){
   return $(this).css('visibility', 'visible')
@@ -6,11 +8,71 @@ $.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
-var current = 0 // 当前页索引
-var $secs = $('section')
-init()
+var current // 当前页索引
+var $secs
+var ppt = window.ppt = {}
+ppt.load = load
 
-function init() {
+function load(url) {
+  $.ajax({
+    type: 'GET',
+    url: url,
+    error: function(err){
+      // todo: 404
+      console.error('load:', err)
+    },
+    success: function(text){
+      text = text.trim() // 移除前后的空白/异常字符
+      init(transfer(text))
+    }
+  })
+}
+
+function transfer(text) {
+  var out = marked(text)
+  var $root = $('<root>').append(out)
+  var $tmp = $('<tmp>')
+  var $list = $('<main>').appendTo($tmp)
+  var $inner
+
+  var children = $root.children()
+  startEach()
+  children.each(function(i, el){
+    var $el = $(el)
+    if ($el.is('h1') || $el.is('h2') || $el.is('h3') ||
+      $el.is('h4') || $el.is('h5') || $el.is('h6')) {
+      endEach()
+      startEach()
+    }
+    $el.appendTo($inner)
+  })
+  endEach()
+
+  return $tmp.html()
+
+  function startEach(){
+    $inner = $('<div>')
+  }
+  function endEach(){
+    if ($inner.children().length < 1) return
+    $('<section>').append($inner).appendTo($list)
+  }
+}
+
+function init(html) {
+  var $main = $(html)
+  var $imgs = $main.find('img')
+  var numimg = $imgs.length
+  if (numimg > 0) {
+    var numload = 0
+    $imgs.on('load', function(){
+      // 所有图片加载后 即可调整布局
+      if (++numload >= numimg) onload()
+    })
+  } else {
+    onload()
+  }
+
   // 侦听键盘事件 前后页切换  
   $(document).on('keydown', function(e){
     var code = e.keyCode
@@ -22,7 +84,10 @@ function init() {
     }
   })
 
-  window.onload = function(){
+  function onload() {
+    current = 0
+    $main.prependTo('body')
+    $secs = $('section')
     $(window).on('resize', layout)
     style() // 装饰
     layout() // 布局
@@ -115,3 +180,5 @@ function show(index) {
 function hide(index) {
   $secs.eq(index).css('z-index', 3).addClass('animated zoomOutDown').vshow()
 }
+
+})();
