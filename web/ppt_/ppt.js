@@ -84,16 +84,20 @@ function init(html) {
     }
   })
 
+  // 侦听lcoation.hash改变
+  window.onhashchange = function(){
+    //console.log('on hash:', location.hash)
+    jump(hashPage())
+  }
+
   function onload() {
-    current = 0
     $main.prependTo('body')
     $secs = $('section')
     $(window).on('resize', layout)
     style() // 装饰
     layout() // 布局
     layout() // hack 再次调用
-    clear() // 清除全部
-    show(0) // 显示首页
+    jump(hashPage()) // 显示首页
   }
 }
 
@@ -162,23 +166,34 @@ function layout() {
 }
 
 function go(step) {
-  var next = current + step
-  if (next < 0 || next >= $secs.length) {
-    return
-  }
-  clear() // 清除全部
-  show(next) // 显示下一页
-  hide(current) // 隐藏当前页
-  current = next
+  jump(current + step)
 }
+function jump(page) {
+  //console.log('jump:', current, page)
+  page = Math.max(1, Math.min(page, $secs.length))
+  if (page === current) return
+  hashPage(page)
+  clear() // 清除全部
+  show(page) // 显示下一页
+  if (current) hide(current) // 隐藏当前页
+  current = page
+}
+function hashPage(page){
+  if (arguments.length <= 0) {
+    return parseInt(location.hash.substr(1)) || 1
+  }
+  location.hash = '' + page
+  //console.log('set hash:', location.hash)
+}
+
 function clear() {
   $secs.vhide().css('z-index', 0).removeClass('animated zoomInUp zoomOutDown')
 }
-function show(index) {
-  $secs.eq(index).css('z-index', 2).addClass('animated zoomInUp').vshow()
+function show(page) {
+  $secs.eq(page - 1).css('z-index', 2).addClass('animated zoomInUp').vshow()
 }
-function hide(index) {
-  $secs.eq(index).css('z-index', 3).addClass('animated zoomOutDown').vshow()
+function hide(page) {
+  $secs.eq(page -1).css('z-index', 3).addClass('animated zoomOutDown').vshow()
 }
 
 })();
