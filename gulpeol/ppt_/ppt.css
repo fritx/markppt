@@ -31,7 +31,7 @@ pre {
   word-break: break-all;
 }
 
-body>div {
+body>main {
   position: relative;
   width: 100%;
   height: 100%;

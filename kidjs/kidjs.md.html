@@ -1,76 +1,15 @@
+<!doctype html>
+<html>
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="ppt_/animate.min.css">
 <link rel="stylesheet" href="ppt_/ppt.css">
-<div><section><div><h1 id="kid-js">kid.js</h1><blockquote>
-<p>Another Browser-side Module Loader.</p>
-</blockquote><p>Source Code: <a href="https://github.com/fritx/kid.js">fritx/kid.js</a></p></div></section><section><div><h2 id="kid-js-vs-sea-js-vs-require-js">Kid.js vs Sea.js vs Require.js</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">&nbsp;</th>
-<th style="text-align:center">Kid.js</th>
-<th style="text-align:center">Sea.js</th>
-<th style="text-align:center">Require.js</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Style</td>
-<td style="text-align:center">-</td>
-<td style="text-align:center">CMD</td>
-<td style="text-align:center">AMD</td>
-</tr>
-<tr>
-<td style="text-align:center">IE Comp</td>
-<td style="text-align:center">IE9+</td>
-<td style="text-align:center">IE5.5+</td>
-<td style="text-align:center">IE6+</td>
-</tr>
-<tr>
-<td style="text-align:center">Symbol</td>
-<td style="text-align:center"><code>kid</code></td>
-<td style="text-align:center"><code>seajs</code></td>
-<td style="text-align:center"><code>require</code></td>
-</tr>
-<tr>
-<td style="text-align:center">Size</td>
-<td style="text-align:center">&lt;1K</td>
-<td style="text-align:center">6.8K</td>
-<td style="text-align:center">15.2K</td>
-</tr>
-<tr>
-<td style="text-align:center">Sandbox</td>
-<td style="text-align:center">No</td>
-<td style="text-align:center">Yes</td>
-<td style="text-align:center">Yes</td>
-</tr>
-<tr>
-<td style="text-align:center">Dep Repack</td>
-<td style="text-align:center">No</td>
-<td style="text-align:center">Yes</td>
-<td style="text-align:center">Yes</td>
-</tr>
-</tbody>
-</table><p>Kid.js implements only dynamically loading, no AMD/CMD.</p></div></section><section><div><h2 id="usage">Usage</h2><pre><code class="lang-js">kid.config({
-  base: 'scripts/',
-  alias: {
-    'underscore': ['underscore.js', 'underscore.string.js'],
-    'jquery': 'jquery/2.0.0/jquery.js',
-    'jquery.cookie': 'jquery.cookie/index.js'
-  }
-});
-
-// they work asynchronously
-
-kid.use(['jquery', 'jquery.cookie'], function () {
-  console.log($);
-  console.log($.cookie);
-});
-
-kid.use(['underscore'], function () {
-  console.log(_);
-  console.log(_.string);
-});
-</code></pre><p>Also see <a href="https://github.com/fritx/kid.js/tree/master/examples">examples/</a></p></div></section></div>
+</head>
+<body>
+<script src="ppt_/marked.min.js"></script>
 <script src="ppt_/jquery.min.js"></script>
 <script src="ppt_/ppt.js"></script>
+<script>ppt.load('kidjs.md')</script>
+</body>
+</html>
