@@ -1,18 +1,19 @@
 {
   "name": "markppt",
-  "version": "0.0.3",
+  "version": "0.0.5",
+  "description": "一篇markdown，一份ppt。",
+  "keywords": [
+    "ppt",
+    "slides",
+    "markdown",
+    "markppt"
+  ],
   "repository": "git@github.com:frtix/markppt.git",
   "main": "index.js",
   "bin": {
     "markppt": "bin/cli.js"
   },
-  "scripts": {
-    "test": "mocha"
-  },
   "dependencies": {
-    "fs-extra": "^0.18.0"
-  },
-  "devDependencies": {
-    "mocha": "^2.2.1"
+    "fs-extra": "^0.23.1"
   }
 }
