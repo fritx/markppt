@@ -84,6 +84,17 @@ function init(html) {
     }
   })
 
+  // 侦听鼠标滚轮事件 前后页切换  
+  $(document).on('mousewheel', function(e){
+    var delta = (e.originalEvent || e).wheelDelta
+    if (delta < 0) { // 右/下 前进
+      go(1)
+    }
+    else if (delta > 0) { // 左/上 后退
+      go(-1)
+    }
+  })
+
   // 侦听lcoation.hash改变
   window.onhashchange = function(){
     //console.log('on hash:', location.hash)
