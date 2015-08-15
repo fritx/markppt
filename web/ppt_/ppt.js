@@ -10,13 +10,15 @@ $.fn.vhide = function(){
 
 var current // 当前页码
 var total // 总页数
+var theme // css主题
 var isTouch
 var $main, $secs
 
 var ppt = window.ppt = {}
 ppt.load = load
 
-function load(url) {
+function load(url, theme_) {
+  theme = theme_
   $.ajax({
     type: 'GET',
     url: url,
@@ -63,7 +65,7 @@ function transfer(text) {
 }
 
 function init(html) {
-  $main = $(html)
+  $main = $(html).addClass(theme)
 
   // 确保所有图片加载 即可调整布局
   var $imgs = $main.find('img')
@@ -143,8 +145,12 @@ function onload() {
 }
 
 function style() {
-  var max = 255
-  var range = 30
+  // todo: 智能避开难看的颜色
+  if (theme === 'light') {
+    var max = 255, range = 30
+  } else if (theme === 'dark') {
+    var max = 120, range = 120
+  }
   $secs.each(function(i, sec){ // 每页随机着浅色
     var colors = [
       max - (Math.random()*range | 0),

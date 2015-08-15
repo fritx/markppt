@@ -114,8 +114,17 @@ html, body {
   overflow: hidden;
   position: relative;
 }
+.dark {
+  color: #fff;
+}
 img {
   max-width: 100%;
+}
+a {
+  color: rgb(100,160,255);
+}
+.dark a {
+  color: rgb(160,230,255);
 }
 * {
   -ms-box-sizing: border-box;

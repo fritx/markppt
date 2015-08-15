@@ -3,7 +3,8 @@ var path = require('path')
 
 exports.build = build
 
-function build(src) {
+function build(src, theme) {
+  if (!theme) theme = 'light'
   var basename = path.basename(src)
   var out = [
   '<!doctype html>',
@@ -19,7 +20,7 @@ function build(src) {
     '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
     '<script src="ppt_/ppt.js"></script>',
-    '<script>ppt.load(\''+ basename +'\')</script>',
+    '<script>ppt.load(\''+ basename +'\', \''+ theme +'\')</script>',
   '</body>',
   '</html>'
   ].join('\n')
