@@ -3,6 +3,109 @@
   animation-duration: .5s;
 }
 
+/* touch箭头提示 */
+@-webkit-keyframes ani_arrow {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  40% {
+    opacity: 1;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+}
+@-moz-keyframes ani_arrow {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  40% {
+    opacity: 1;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+}
+@-ms-keyframes ani_arrow {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  40% {
+    opacity: 1;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+}
+@keyframes ani_arrow {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  40% {
+    opacity: 1;
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+}
+.arrow {
+  z-index: 9;
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  bottom: 10px;
+  left: 50%;
+  margin-left: -25px;
+  opacity: 0;
+  -webkit-animation: ani_arrow 1.2s ease-in 0s infinite;
+  -moz-animation: ani_arrow 1.2s ease-in 0s infinite;
+  -ms-animation: ani_arrow 1.2s ease-in 0s infinite;
+  -o-animation: ani_arrow 1.2s ease-in 0s infinite;
+  animation: ani_arrow 1.2s ease-in 0s infinite
+}
+.arrow:before {
+  width: 21px;
+  height: 12px;
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  background-image: url(arrow_up.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.arrow.down:before {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 html, body {
   margin: 0;
   padding: 0;

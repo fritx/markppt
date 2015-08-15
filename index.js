@@ -16,6 +16,7 @@ function build(src) {
   '</head>',
   '<body>',
     '<script src="ppt_/marked.min.js"></script>',
+    '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
     '<script src="ppt_/ppt.js"></script>',
     '<script>ppt.load(\''+ basename +'\')</script>',
