@@ -8,12 +8,17 @@ $.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
-var current // 当前页索引
-var $secs
+var current // 当前页码
+var total // 总页数
+var theme // css主题
+var isTouch
+var $main, $secs
+
 var ppt = window.ppt = {}
 ppt.load = load
 
-function load(url) {
+function load(url, theme_) {
+  theme = theme_
   $.ajax({
     type: 'GET',
     url: url,
@@ -60,20 +65,38 @@ function transfer(text) {
 }
 
 function init(html) {
-  var $main = $(html)
+  $main = $(html).addClass(theme)
+
+  // 确保所有图片加载 即可调整布局
   var $imgs = $main.find('img')
   var numimg = $imgs.length
   if (numimg > 0) {
     var numload = 0
     $imgs.on('load', function(){
-      // 所有图片加载后 即可调整布局
       if (++numload >= numimg) onload()
     })
   } else {
     onload()
   }
 
-  // 侦听键盘事件 前后页切换  
+  // 提取并设置title
+  var title = $main.find('h1, p').first().text() || ' '
+  document.title = title
+}
+
+function onload() {
+  $main.prependTo('body')
+  $secs = $main.find('section')
+  total = $secs.length
+  isTouch = 'ontouchmove' in document
+
+  $(window).on('resize', layout)
+  style() // 装饰
+  layout() // 布局
+  layout() // hack 再次调用
+  jump(hashPage()) // 显示首页
+
+  // 侦听键盘事件 前后页切换
   $(document).on('keydown', function(e){
     var code = e.keyCode
     if (code === 40 || code === 39) { // 右/下 前进
@@ -100,21 +123,34 @@ function init(html) {
     //console.log('on hash:', location.hash)
     jump(hashPage())
   }
+  if (isTouch) {
+    // 添加箭头提示
+    $('<div>').addClass('arrow').appendTo($main)
 
-  function onload() {
-    $main.prependTo('body')
-    $secs = $('section')
-    $(window).on('resize', layout)
-    style() // 装饰
-    layout() // 布局
-    layout() // hack 再次调用
-    jump(hashPage()) // 显示首页
+    // 侦听swipe事件 前后页切换
+    var mc = new Hammer($main.get(0))
+    mc.get('swipe').set({
+      direction: Hammer.DIRECTION_ALL,
+      threshold: 5,
+      velocity: 0.01
+    })
+    mc.on('swipeup swipedown', function(e){
+      if (e.type === 'swipeup') {
+        go(1)
+      } else if (e.type === 'swipedown') {
+        go(-1)
+      }
+    })
   }
 }
 
 function style() {
-  var max = 255
-  var range = 30
+  // todo: 智能避开难看的颜色
+  if (theme === 'light') {
+    var max = 255, range = 30
+  } else if (theme === 'dark') {
+    var max = 120, range = 120
+  }
   $secs.each(function(i, sec){ // 每页随机着浅色
     var colors = [
       max - (Math.random()*range | 0),
@@ -181,7 +217,7 @@ function go(step) {
 }
 function jump(page) {
   //console.log('jump:', current, page)
-  page = Math.max(1, Math.min(page, $secs.length))
+  page = Math.max(1, Math.min(page, total))
   if (page === current) return
   hashPage(page)
   clear() // 清除全部
