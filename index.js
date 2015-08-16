@@ -23,6 +23,7 @@ function build(file, opt) {
     '<link rel="stylesheet" href="ppt_/ppt.css">',
   '</head>',
   '<body>',
+    '<img src="ppt_/icon1_2.png">',
     '<script src="ppt_/marked.min.js"></script>',
     '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
