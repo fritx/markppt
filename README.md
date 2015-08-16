@@ -2,8 +2,8 @@
 
 项目源码 <https://github.com/fritx/markppt>
 
-<img width="140" src="https://github.com/fritx/markppt/blob/dev/screenshots/2015-04-11%2002.09.47.png">
-&nbsp;&nbsp;<img width="403" src="https://github.com/fritx/markppt/blob/dev/screenshots/2015-04-10%2023.17.37.png">
+<img width="140" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-11%2002.09.47.png">
+&nbsp;&nbsp;<img width="403" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-10%2023.17.37.png">
 
 ## 一篇markdown，一份ppt。
 
@@ -23,6 +23,7 @@
 ```
 $ npm i -g markppt   # 从npm安装
 $ markppt mytalk/talk.md   # markdown路径
+$ markppt mytalk/talk.md light   # 指定css主题
 ```
 
 将会在[原目录](https://github.com/fritx/markppt/tree/master/examples/mytalk/)

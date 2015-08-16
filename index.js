@@ -4,7 +4,7 @@ var path = require('path')
 exports.build = build
 
 function build(src, theme) {
-  if (!theme) theme = 'light'
+  if (!theme) theme = 'dark'
   var basename = path.basename(src)
   var out = [
   '<!doctype html>',

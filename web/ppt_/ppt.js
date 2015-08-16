@@ -82,6 +82,9 @@ function init(html) {
   // 提取并设置title
   var title = $main.find('h1, p').first().text() || ' '
   document.title = title
+
+  // 添加箭头提示
+  $('<div>').addClass('arrow bottom').appendTo($main)
 }
 
 function onload() {
@@ -94,12 +97,15 @@ function onload() {
   style() // 装饰
   layout() // 布局
   layout() // hack 再次调用
-  jump(hashPage()) // 显示首页
+  //jump(hashPage()) // 显示首页
+  jump(1) // 显示首页
 
   // 侦听键盘事件 前后页切换
+  // 浏览器默认退格键为历史返回
   $(document).on('keydown', function(e){
     var code = e.keyCode
-    if (code === 40 || code === 39) { // 右/下 前进
+    if (code === 40 || code === 39 ||
+      code === 32 || code === 13) { // 右/下/空格/回车 前进
       go(1)
     }
     else if (code === 37 || code === 38) { // 左/上 后退
@@ -119,14 +125,12 @@ function onload() {
   })
 
   // 侦听lcoation.hash改变
-  window.onhashchange = function(){
+  window.addEventListener('hashchange', function(){
     //console.log('on hash:', location.hash)
     jump(hashPage())
-  }
-  if (isTouch) {
-    // 添加箭头提示
-    $('<div>').addClass('arrow bottom').appendTo($main)
+  })
 
+  if (isTouch) {
     // 侦听swipe事件 前后页切换
     var mc = new Hammer($main.get(0))
     mc.get('swipe').set({
