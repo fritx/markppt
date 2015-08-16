@@ -170,3 +170,10 @@ section>div {
   /*box-sizing: content-box;*/
   width: 100%;
 }
+
+/* 微信分享holder */
+body>img {
+  position: absolute;
+  left: -9999px;
+  top: -999px;
+}

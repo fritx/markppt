@@ -10,25 +10,25 @@ $.fn.vhide = function(){
 
 var current = 0 // 当前页码
 var total // 总页数
-var theme // css主题
+var opt // 自定义选项
 var isTouch
 var $main, $secs
 
 var ppt = window.ppt = {}
-ppt.load = load
+ppt.setup = setup
 
-function load(url, theme_) {
-  theme = theme_
+function setup(options) {
+  opt = options
   $.ajax({
     type: 'GET',
-    url: url,
+    url: opt.url,
     error: function(err){
       // todo: 404
       console.error('load:', err)
     },
     success: function(text){
       text = text.trim() // 移除前后的空白/异常字符
-      init(transfer(text))
+      load(transfer(text))
     }
   })
 }
@@ -44,10 +44,11 @@ function transfer(text) {
   startEach()
   children.each(function(i, el){
     var $el = $(el)
-    if ($el.is('h1') || $el.is('h2') || $el.is('h3') ||
-      $el.is('h4') || $el.is('h5') || $el.is('h6')) {
+    var tag = $el.prop('tagName').toLowerCase()
+    if (opt.pageBreak.indexOf(tag) > -1) {
       endEach()
       startEach()
+      if (['hr'].indexOf(tag) > -1) return
     }
     $el.appendTo($inner)
   })
@@ -64,8 +65,8 @@ function transfer(text) {
   }
 }
 
-function init(html) {
-  $main = $(html).addClass(theme)
+function load(html) {
+  $main = $(html).addClass(opt.theme)
 
   // 确保所有图片加载 即可调整布局
   var $imgs = $main.find('img')
@@ -150,9 +151,9 @@ function onload() {
 
 function style() {
   // todo: 智能避开难看的颜色
-  if (theme === 'light') {
+  if (opt.theme === 'light') {
     var max = 255, range = 30
-  } else if (theme === 'dark') {
+  } else if (opt.theme === 'dark') {
     var max = 120, range = 120
   }
   $secs.each(function(i, sec){ // 每页随机着浅色
