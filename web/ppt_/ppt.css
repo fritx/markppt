@@ -113,6 +113,7 @@ html, body {
   height: 100%;
   overflow: hidden;
   position: relative;
+  background-color: #f8f8f8;
 }
 .dark {
   color: #fff;
@@ -147,7 +148,6 @@ body>main {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: #f8f8f8;
 }
 
 section {

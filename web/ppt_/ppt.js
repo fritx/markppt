@@ -8,7 +8,7 @@ $.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
-var current // 当前页码
+var current = 0 // 当前页码
 var total // 总页数
 var theme // css主题
 var isTouch
@@ -221,8 +221,7 @@ function jump(page) {
   if (page === current) return
   hashPage(page)
   clear() // 清除全部
-  show(page) // 显示下一页
-  if (current) hide(current) // 隐藏当前页
+  slide(page) // 显示下一页
   current = page
 }
 function hashPage(page){
@@ -234,13 +233,27 @@ function hashPage(page){
 }
 
 function clear() {
-  $secs.vhide().css('z-index', 0).removeClass('animated zoomInUp zoomOutDown')
+  $secs.vhide().css('z-index', 0)
+    .removeClass([
+      'slideInUp', 'slideInDown',
+      'slideOutUp', 'slideOutDown',
+      'animated',
+      ].join(' '))
 }
-function show(page) {
-  $secs.eq(page - 1).css('z-index', 2).addClass('animated zoomInUp').vshow()
-}
-function hide(page) {
-  $secs.eq(page -1).css('z-index', 3).addClass('animated zoomOutDown').vshow()
+function slide(page) {
+  var dir = page > current ? 'Up' : 'Down'
+  var $next = $secs.eq(page - 1)
+  var $prev = $secs.eq(current -1)
+  $next.css('z-index', 2)
+    .addClass([
+      'slideIn' + dir, 'animated'
+      ].join(' ')).vshow()
+  if (current > 0) {
+    $prev.css('z-index', 3)
+      .addClass([
+        'slideOut' + dir, 'animated'
+        ].join(' ')).vshow()
+  }
 }
 
 })();
