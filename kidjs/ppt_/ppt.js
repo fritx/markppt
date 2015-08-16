@@ -8,7 +8,7 @@ $.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
-var current // 当前页码
+var current = 0 // 当前页码
 var total // 总页数
 var theme // css主题
 var isTouch
@@ -82,6 +82,9 @@ function init(html) {
   // 提取并设置title
   var title = $main.find('h1, p').first().text() || ' '
   document.title = title
+
+  // 添加箭头提示
+  $('<div>').addClass('arrow bottom').appendTo($main)
 }
 
 function onload() {
@@ -94,12 +97,15 @@ function onload() {
   style() // 装饰
   layout() // 布局
   layout() // hack 再次调用
-  jump(hashPage()) // 显示首页
+  //jump(hashPage()) // 显示首页
+  jump(1) // 显示首页
 
   // 侦听键盘事件 前后页切换
+  // 浏览器默认退格键为历史返回
   $(document).on('keydown', function(e){
     var code = e.keyCode
-    if (code === 40 || code === 39) { // 右/下 前进
+    if (code === 40 || code === 39 ||
+      code === 32 || code === 13) { // 右/下/空格/回车 前进
       go(1)
     }
     else if (code === 37 || code === 38) { // 左/上 后退
@@ -119,14 +125,12 @@ function onload() {
   })
 
   // 侦听lcoation.hash改变
-  window.onhashchange = function(){
+  window.addEventListener('hashchange', function(){
     //console.log('on hash:', location.hash)
     jump(hashPage())
-  }
-  if (isTouch) {
-    // 添加箭头提示
-    $('<div>').addClass('arrow').appendTo($main)
+  })
 
+  if (isTouch) {
     // 侦听swipe事件 前后页切换
     var mc = new Hammer($main.get(0))
     mc.get('swipe').set({
@@ -166,46 +170,44 @@ function style() {
 function layout() {
   var W = window.innerWidth
   var H = window.innerHeight
-  if (W <= H) { // 横屏
+  if (W <= H) { // 竖屏
     $secs.each(function(i, sec){
       var $div = $(sec).children('div')
-      var h = $div.height()
+      var h = $div.outerHeight()
       $div.css({
         'position': 'absolute',
-        'padding': '0 10%',
+        'padding-left': '10%',
+        'padding-right': '10%',
         'top': 100*.45 + '%',
         'margin-top': (-h/2) + 'px'
       })
-      if (h > H/(1.5-.45)) { // 内容高度超出范围 需缩放
+      if (h > (H-20)/(1.5-.45)) { // 内容高度超出范围 需缩放
         $div.css({
-          'top': 100*.5 + '%',
-          '-webkit-transform': 'scale('+ H/h +')',
-          '-moz-transform': 'scale('+ H/h +')',
-          '-ms-transform': 'scale('+ H/h +')',
-          '-o-transform': 'scale('+ H/h +')',
-          'transform': 'scale('+ H/h +')'
+          'top': '0',
+          'margin-top': '0',
+          '-webkit-transform': 'scale('+ (H-20)/h +')',
+          'transform': 'scale('+ (H-20)/h +')'
         })
       }
     })
   }
-  else { // 竖屏
+  else { // 横屏
     $secs.each(function(i, sec){
       var $div = $(sec).children('div')
-      var h = $div.height()
+      var h = $div.outerHeight()
       $div.css({
         'position': 'absolute',
-        'padding': '0 20%',
+        'padding-left': '20%',
+        'padding-right': '20%',
         'top': 100*.47 + '%',
         'margin-top': (-h/2) + 'px'
       })
-      if (h > H/(1.5-.47)) { // 内容高度超出范围 需缩放
+      if (h > (H-20)/(1.5-.47)) { // 内容高度超出范围 需缩放
         $div.css({
-          'top': 100*.5 + '%',
-          '-webkit-transform': 'scale('+ H/h +')',
-          '-moz-transform': 'scale('+ H/h +')',
-          '-ms-transform': 'scale('+ H/h +')',
-          '-o-transform': 'scale('+ H/h +')',
-          'transform': 'scale('+ H/h +')'
+          'top': '0',
+          'margin-top': '0',
+          '-webkit-transform': 'scale('+ (H-20)/h +')',
+          'transform': 'scale('+ (H-20)/h +')'
         })
       }
     })
@@ -221,8 +223,7 @@ function jump(page) {
   if (page === current) return
   hashPage(page)
   clear() // 清除全部
-  show(page) // 显示下一页
-  if (current) hide(current) // 隐藏当前页
+  slide(page) // 显示下一页
   current = page
 }
 function hashPage(page){
@@ -234,13 +235,27 @@ function hashPage(page){
 }
 
 function clear() {
-  $secs.vhide().css('z-index', 0).removeClass('animated zoomInUp zoomOutDown')
+  $secs.vhide().css('z-index', 0)
+    .removeClass([
+      'slideInUp', 'slideInDown',
+      'slideOutUp', 'slideOutDown',
+      'animated',
+      ].join(' '))
 }
-function show(page) {
-  $secs.eq(page - 1).css('z-index', 2).addClass('animated zoomInUp').vshow()
-}
-function hide(page) {
-  $secs.eq(page -1).css('z-index', 3).addClass('animated zoomOutDown').vshow()
+function slide(page) {
+  var dir = page > current ? 'Up' : 'Down'
+  var $next = $secs.eq(page - 1)
+  var $prev = $secs.eq(current -1)
+  $next.css('z-index', 2)
+    .addClass([
+      'slideIn' + dir, 'animated'
+      ].join(' ')).vshow()
+  if (current > 0) {
+    $prev.css('z-index', 3)
+      .addClass([
+        'slideOut' + dir, 'animated'
+        ].join(' ')).vshow()
+  }
 }
 
 })();

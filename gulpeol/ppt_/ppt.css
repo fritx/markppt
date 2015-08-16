@@ -77,15 +77,6 @@
   position: absolute;
   width: 50px;
   height: 30px;
-  bottom: 10px;
-  left: 50%;
-  margin-left: -25px;
-  opacity: 0;
-  -webkit-animation: ani_arrow 1.2s ease-in 0s infinite;
-  -moz-animation: ani_arrow 1.2s ease-in 0s infinite;
-  -ms-animation: ani_arrow 1.2s ease-in 0s infinite;
-  -o-animation: ani_arrow 1.2s ease-in 0s infinite;
-  animation: ani_arrow 1.2s ease-in 0s infinite
 }
 .arrow:before {
   width: 21px;
@@ -97,13 +88,23 @@
   background-image: url(arrow_up.png);
   background-repeat: no-repeat;
   background-size: cover;
+  opacity: 0;
+  -webkit-animation: ani_arrow 1.2s ease-in 0s infinite;
+  animation: ani_arrow 1.2s ease-in 0s infinite
 }
-.arrow.down:before {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
+.arrow.bottom {
+  bottom: 4px;
+  left: 50%;
+  margin-left: -25px;
+}
+.arrow.right {
+  right: 4px;
+  top: 50%;
+  margin-top: -15px;
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 
 html, body {
@@ -113,6 +114,7 @@ html, body {
   height: 100%;
   overflow: hidden;
   position: relative;
+  background-color: #f8f8f8;
 }
 .dark {
   color: #fff;
@@ -147,7 +149,6 @@ body>main {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: #f8f8f8;
 }
 
 section {
@@ -163,6 +164,8 @@ section {
 }
 
 section>div {
+  -webkit-transform-origin: top;
+  transform-origin: top;
   padding: 1px; /* hack */
   /*box-sizing: content-box;*/
   width: 100%;
