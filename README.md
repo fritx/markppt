@@ -16,14 +16,13 @@
 
 点击查看演示
 
-- [gulp-eol bug之总结 (dark)](http://fritx.github.io/markppt/gulpeol-dark/gulp-eol-bug.md.html)
+- [gulp-eol bug之总结 (light)](http://fritx.github.io/markppt/gulpeol-light/gulp-eol-bug.md.html)
 - [gulp-eol bug之总结](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.md.html)
 - [My Talk](http://fritx.github.io/markppt/mytalk/talk.md.html)
 
 ```
 $ npm i -g markppt   # 从npm安装
 $ markppt mytalk/talk.md   # markdown路径
-$ markppt mytalk/talk.md light   # 指定css主题
 ```
 
 将会在[原目录](https://github.com/fritx/markppt/tree/master/examples/mytalk/)
@@ -43,3 +42,8 @@ $ markppt mytalk/talk.md light   # 指定css主题
   - talk.md
   - talk.md.html (√)
 ```
+
+`markppt.json`自定义配置
+
+- `theme`: css主题 dark|light
+- `pageBreak`: 换行元素 h1~h6/hr
