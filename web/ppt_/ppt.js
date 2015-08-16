@@ -125,7 +125,7 @@ function onload() {
   }
   if (isTouch) {
     // 添加箭头提示
-    $('<div>').addClass('arrow').appendTo($main)
+    $('<div>').addClass('arrow bottom').appendTo($main)
 
     // 侦听swipe事件 前后页切换
     var mc = new Hammer($main.get(0))
@@ -166,46 +166,44 @@ function style() {
 function layout() {
   var W = window.innerWidth
   var H = window.innerHeight
-  if (W <= H) { // 横屏
+  if (W <= H) { // 竖屏
     $secs.each(function(i, sec){
       var $div = $(sec).children('div')
-      var h = $div.height()
+      var h = $div.outerHeight()
       $div.css({
         'position': 'absolute',
-        'padding': '0 10%',
+        'padding-left': '10%',
+        'padding-right': '10%',
         'top': 100*.45 + '%',
         'margin-top': (-h/2) + 'px'
       })
-      if (h > H/(1.5-.45)) { // 内容高度超出范围 需缩放
+      if (h > (H-20)/(1.5-.45)) { // 内容高度超出范围 需缩放
         $div.css({
-          'top': 100*.5 + '%',
-          '-webkit-transform': 'scale('+ H/h +')',
-          '-moz-transform': 'scale('+ H/h +')',
-          '-ms-transform': 'scale('+ H/h +')',
-          '-o-transform': 'scale('+ H/h +')',
-          'transform': 'scale('+ H/h +')'
+          'top': '0',
+          'margin-top': '0',
+          '-webkit-transform': 'scale('+ (H-20)/h +')',
+          'transform': 'scale('+ (H-20)/h +')'
         })
       }
     })
   }
-  else { // 竖屏
+  else { // 横屏
     $secs.each(function(i, sec){
       var $div = $(sec).children('div')
-      var h = $div.height()
+      var h = $div.outerHeight()
       $div.css({
         'position': 'absolute',
-        'padding': '0 20%',
+        'padding-left': '20%',
+        'padding-right': '20%',
         'top': 100*.47 + '%',
         'margin-top': (-h/2) + 'px'
       })
-      if (h > H/(1.5-.47)) { // 内容高度超出范围 需缩放
+      if (h > (H-20)/(1.5-.47)) { // 内容高度超出范围 需缩放
         $div.css({
-          'top': 100*.5 + '%',
-          '-webkit-transform': 'scale('+ H/h +')',
-          '-moz-transform': 'scale('+ H/h +')',
-          '-ms-transform': 'scale('+ H/h +')',
-          '-o-transform': 'scale('+ H/h +')',
-          'transform': 'scale('+ H/h +')'
+          'top': '0',
+          'margin-top': '0',
+          '-webkit-transform': 'scale('+ (H-20)/h +')',
+          'transform': 'scale('+ (H-20)/h +')'
         })
       }
     })
