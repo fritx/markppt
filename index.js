@@ -3,9 +3,11 @@ var path = require('path')
 
 exports.build = build
 
-function build(src, theme) {
-  if (!theme) theme = 'dark'
-  var basename = path.basename(src)
+function build(file, opt) {
+  if (!opt.theme) opt.theme = 'dark'
+
+  var basename = path.basename(file)
+  opt.url = basename
   var out = [
   '<!doctype html>',
   '<html>',
@@ -16,16 +18,17 @@ function build(src, theme) {
     '<link rel="stylesheet" href="ppt_/ppt.css">',
   '</head>',
   '<body>',
+    '<img src="ppt_/icon1_2.png">',
     '<script src="ppt_/marked.min.js"></script>',
     '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
     '<script src="ppt_/ppt.js"></script>',
-    '<script>ppt.load(\''+ basename +'\', \''+ theme +'\')</script>',
+    '<script>ppt.setup('+ JSON.stringify(opt) +')</script>',
   '</body>',
   '</html>'
   ].join('\n')
 
-  var dir = path.dirname(src)
+  var dir = path.dirname(file)
   fs.copySync(path.resolve(__dirname, 'web'), dir)
   fs.writeFileSync(path.resolve(dir, basename + '.html'), out)
 }

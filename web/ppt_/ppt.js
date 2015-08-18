@@ -10,25 +10,25 @@ $.fn.vhide = function(){
 
 var current = 0 // 当前页码
 var total // 总页数
-var theme // css主题
+var opt // 自定义选项
 var isTouch
 var $main, $secs
 
 var ppt = window.ppt = {}
-ppt.load = load
+ppt.setup = setup
 
-function load(url, theme_) {
-  theme = theme_
+function setup(options) {
+  opt = options
   $.ajax({
     type: 'GET',
-    url: url,
+    url: opt.url,
     error: function(err){
       // todo: 404
       console.error('load:', err)
     },
     success: function(text){
       text = text.trim() // 移除前后的空白/异常字符
-      init(transfer(text))
+      load(transfer(text))
     }
   })
 }
@@ -36,18 +36,25 @@ function load(url, theme_) {
 function transfer(text) {
   var out = marked(text)
   var $root = $('<root>').append(out)
+  var $children = $root.children()
   var $tmp = $('<tmp>')
   var $list = $('<main>').appendTo($tmp)
   var $inner
 
-  var children = $root.children()
+  // 暂时的一个hack
+  // 如果末尾是一个hr，则视作hrOnly分页
+  // 适用于专门的ppt-md 稍后给出sample
+  var hrOnly = $children.last().is('hr')
+  var pageBreak = hrOnly ? 'hr' :
+    'h1, h2, h3, h4, h5, h6, hr'
+
   startEach()
-  children.each(function(i, el){
+  $children.each(function(i, el){
     var $el = $(el)
-    if ($el.is('h1') || $el.is('h2') || $el.is('h3') ||
-      $el.is('h4') || $el.is('h5') || $el.is('h6')) {
+    if ($el.is(pageBreak)) {
       endEach()
       startEach()
+      if ($el.is('hr')) return
     }
     $el.appendTo($inner)
   })
@@ -64,8 +71,8 @@ function transfer(text) {
   }
 }
 
-function init(html) {
-  $main = $(html).addClass(theme)
+function load(html) {
+  $main = $(html).addClass(opt.theme)
 
   // 确保所有图片加载 即可调整布局
   var $imgs = $main.find('img')
@@ -150,9 +157,9 @@ function onload() {
 
 function style() {
   // todo: 智能避开难看的颜色
-  if (theme === 'light') {
+  if (opt.theme === 'light') {
     var max = 255, range = 30
-  } else if (theme === 'dark') {
+  } else if (opt.theme === 'dark') {
     var max = 120, range = 120
   }
   $secs.each(function(i, sec){ // 每页随机着浅色
