@@ -24,6 +24,7 @@
 ```
 $ npm i -g markppt   # 从npm安装
 $ markppt mytalk/talk.md   # markdown路径
+$ markppt mytalk/talk.md --theme=light   # 指定css主题
 ```
 
 将会在[原目录](https://github.com/fritx/markppt/tree/master/examples/mytalk/)
@@ -43,8 +44,3 @@ $ markppt mytalk/talk.md   # markdown路径
   - talk.md
   - talk.md.html (√)
 ```
-
-`markppt.json`自定义配置
-
-- `theme`: css主题 dark|light
-- `pageBreak`: 换行元素 h1~h6/hr

@@ -36,19 +36,25 @@ function setup(options) {
 function transfer(text) {
   var out = marked(text)
   var $root = $('<root>').append(out)
+  var $children = $root.children()
   var $tmp = $('<tmp>')
   var $list = $('<main>').appendTo($tmp)
   var $inner
 
-  var children = $root.children()
+  // 暂时的一个hack
+  // 如果末尾是一个hr，则视作hrOnly分页
+  // 适用于专门的ppt-md 稍后给出sample
+  var hrOnly = $children.last().is('hr')
+  var pageBreak = hrOnly ? 'hr' :
+    'h1, h2, h3, h4, h5, h6, hr'
+
   startEach()
-  children.each(function(i, el){
+  $children.each(function(i, el){
     var $el = $(el)
-    var tag = $el.prop('tagName').toLowerCase()
-    if (opt.pageBreak.indexOf(tag) > -1) {
+    if ($el.is(pageBreak)) {
       endEach()
       startEach()
-      if (['hr'].indexOf(tag) > -1) return
+      if ($el.is('hr')) return
     }
     $el.appendTo($inner)
   })

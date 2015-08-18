@@ -5,11 +5,6 @@ exports.build = build
 
 function build(file, opt) {
   if (!opt.theme) opt.theme = 'dark'
-  if (!opt.pageBreak) {
-    opt.pageBreak = [
-      'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
-    ]
-  }
 
   var basename = path.basename(file)
   opt.url = basename
