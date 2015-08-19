@@ -96,6 +96,7 @@ function load(html) {
 
 function onload() {
   $main.prependTo('body')
+  hljs.initHighlighting()
   $secs = $main.find('section')
   total = $secs.length
   isTouch = 'ontouchmove' in document

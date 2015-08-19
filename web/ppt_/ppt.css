@@ -144,6 +144,10 @@ pre, table {
 pre {
   word-break: break-all;
 }
+pre code {
+  -webkit-border-radius: 6px; /* 同scroller圆角 */
+  border-radius: 6px;
+}
 
 body>main {
   position: relative;
