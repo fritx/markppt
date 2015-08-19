@@ -123,6 +123,7 @@ function onload() {
 
   // 侦听鼠标滚轮事件 前后页切换  
   $(document).on('mousewheel', function(e){
+    if (e.ctrlKey) return // 忽略滚轮缩放
     var delta = (e.originalEvent || e).wheelDelta
     if (delta < 0) { // 右/下 前进
       go(1)
