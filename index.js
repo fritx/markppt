@@ -6,7 +6,8 @@ exports.build = build
 function build(file, opt) {
   if (!opt.theme) opt.theme = 'dark'
 
-  var basename = path.basename(file)
+  var basename = path.basename(file) //=> index.md
+  var baseseg = basename.split('.')[0] //=> index
   opt.url = basename
   var out = [
   '<!doctype html>',
@@ -32,5 +33,5 @@ function build(file, opt) {
 
   var dir = path.dirname(file)
   fs.copySync(path.resolve(__dirname, 'web'), dir)
-  fs.writeFileSync(path.resolve(dir, basename + '.html'), out)
+  fs.writeFileSync(path.resolve(dir, baseseg + '.html'), out) //=> index.html
 }
