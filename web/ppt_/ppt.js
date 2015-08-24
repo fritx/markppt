@@ -121,14 +121,18 @@ function onload() {
     }
   })
 
-  // 侦听鼠标滚轮事件 前后页切换  
+  // 侦听鼠标滚轮事件 前后页切换
+  // fixme: 防止mac触摸板过度灵敏 需改进
+  var lastWheel = -1
   $(document).on('mousewheel', function(e){
     if (e.ctrlKey) return // 忽略滚轮缩放
+    if (Date.now() - lastWheel < 500) return
+    lastWheel = Date.now()
     var delta = (e.originalEvent || e).wheelDelta
-    if (delta < 0) { // 右/下 前进
+    if (delta < -3) { // 右/下 前进
       go(1)
     }
-    else if (delta > 0) { // 左/上 后退
+    else if (delta > 3) { // 左/上 后退
       go(-1)
     }
   })
