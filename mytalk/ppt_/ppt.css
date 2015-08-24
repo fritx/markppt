@@ -3,6 +3,16 @@
   animation-duration: .5s;
 }
 
+/* 
+  改自 gitter.im scroller效果
+  https://cdn02.gitter.im/_s/543e5ec/styles/router-app.css
+*/
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background-color:rgba(100,100,100,.1)}
+::-webkit-scrollbar-thumb{-webkit-border-radius:6px;border-radius:6px;background:rgba(100,100,100,.2);margin-right:1px;-webkit-transition:opacity 300ms ease-in-out;transition:opacity 300ms ease-in-out}
+:hover::-webkit-scrollbar-thumb{background:rgba(100,100,100,.4);margin-right:1px;-webkit-transition:opacity 300ms ease-in-out;transition:opacity 300ms ease-in-out}
+::-webkit-scrollbar-thumb:window-inactive{background:rgba(0,0,0,.1)}
+
 /* touch箭头提示 */
 @-webkit-keyframes ani_arrow {
   0% {
@@ -144,6 +154,10 @@ pre, table {
 pre {
   word-break: break-all;
 }
+pre code {
+  -webkit-border-radius: 6px; /* 同scroller圆角 */
+  border-radius: 6px;
+}
 
 body>main {
   position: relative;
@@ -159,7 +173,7 @@ section {
   right: 0;
   visibility: hidden;
   font-family: "Microsoft Yahei";
-  font-size: 140%;
+  font-size: 175%;
   word-break: break-word;
 }
 

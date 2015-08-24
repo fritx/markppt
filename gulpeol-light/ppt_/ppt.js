@@ -8,10 +8,12 @@ $.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
+var isDev = /[\?&]dev/.test(location.search)
+var isTouch = 'ontouchmove' in document
+
 var current = 0 // 当前页码
 var total // 总页数
 var opt // 自定义选项
-var isTouch
 var $main, $secs
 
 var ppt = window.ppt = {}
@@ -36,19 +38,25 @@ function setup(options) {
 function transfer(text) {
   var out = marked(text)
   var $root = $('<root>').append(out)
+  var $children = $root.children()
   var $tmp = $('<tmp>')
   var $list = $('<main>').appendTo($tmp)
   var $inner
 
-  var children = $root.children()
+  // 暂时的一个hack
+  // 如果末尾是一个hr，则视作hrOnly分页
+  // 适用于专门的ppt-md 稍后给出sample
+  var hrOnly = $children.last().is('hr')
+  var pageBreak = hrOnly ? 'hr' :
+    'h1, h2, h3, h4, h5, h6, hr'
+
   startEach()
-  children.each(function(i, el){
+  $children.each(function(i, el){
     var $el = $(el)
-    var tag = $el.prop('tagName').toLowerCase()
-    if (opt.pageBreak.indexOf(tag) > -1) {
+    if ($el.is(pageBreak)) {
       endEach()
       startEach()
-      if (['hr'].indexOf(tag) > -1) return
+      if ($el.is('hr')) return
     }
     $el.appendTo($inner)
   })
@@ -90,16 +98,18 @@ function load(html) {
 
 function onload() {
   $main.prependTo('body')
+  hljs.initHighlighting()
+
   $secs = $main.find('section')
   total = $secs.length
-  isTouch = 'ontouchmove' in document
 
   $(window).on('resize', layout)
   style() // 装饰
   layout() // 布局
   layout() // hack 再次调用
   //jump(hashPage()) // 显示首页
-  jump(1) // 显示首页
+  //jump(1) // 显示首页
+  jump(isDev ? hashPage() : 1) // dev模式则锁定页码
 
   // 侦听键盘事件 前后页切换
   // 浏览器默认退格键为历史返回
@@ -114,13 +124,18 @@ function onload() {
     }
   })
 
-  // 侦听鼠标滚轮事件 前后页切换  
+  // 侦听鼠标滚轮事件 前后页切换
+  // fixme: 防止mac触摸板过度灵敏 需改进
+  var lastWheel = -1
   $(document).on('mousewheel', function(e){
+    if (e.ctrlKey) return // 忽略滚轮缩放
+    if (Date.now() - lastWheel < 500) return
+    lastWheel = Date.now()
     var delta = (e.originalEvent || e).wheelDelta
-    if (delta < 0) { // 右/下 前进
+    if (delta < -3) { // 右/下 前进
       go(1)
     }
-    else if (delta > 0) { // 左/上 后退
+    else if (delta > 3) { // 左/上 后退
       go(-1)
     }
   })
