@@ -4,7 +4,7 @@
 
 <img width="140" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-11%2002.09.47.png">
 &nbsp;&nbsp;<img width="403" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-10%2023.17.37.png">
-&nbsp;&nbsp;<img width="100" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon1_2.png">
+&nbsp;&nbsp;<img width="100" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_450x450.png">
 
 ## 一篇markdown，一份ppt。
 
@@ -17,9 +17,9 @@
 
 点击查看演示
 
-- [gulp-eol bug之总结 (light)](http://fritx.github.io/markppt/gulpeol-light/gulp-eol-bug.md.html)
-- [gulp-eol bug之总结](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.md.html)
-- [My Talk](http://fritx.github.io/markppt/mytalk/talk.md.html)
+- [gulp-eol bug之总结 (light)](http://fritx.github.io/markppt/gulpeol-light/gulp-eol-bug.html)
+- [gulp-eol bug之总结](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.html)
+- [My Talk](http://fritx.github.io/markppt/mytalk/talk.html)
 
 ```
 $ npm i -g markppt   # 从npm安装
@@ -35,12 +35,12 @@ $ markppt mytalk/talk.md --theme=light   # 指定css主题
   - talk.md
 ```
 
-生成`ppt_`文件夹，和一份`talk.md.html`，打开即可[浏览ppt](http://fritx.github.io/markppt/mytalk/talk.md.html)
+生成`ppt_`文件夹，和一份`talk.html`，打开即可[浏览ppt](http://fritx.github.io/markppt/mytalk/talk.html)
 
 ```
 - mytalk/
   - ppt_/ (√)
   - Desert.jpg
   - talk.md
-  - talk.md.html (√)
+  - talk.html (√)
 ```

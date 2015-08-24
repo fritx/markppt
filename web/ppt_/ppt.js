@@ -8,10 +8,12 @@ $.fn.vhide = function(){
   return $(this).css('visibility', 'hidden')
 }
 
+var isDev = /[\?&]dev/.test(location.search)
+var isTouch = 'ontouchmove' in document
+
 var current = 0 // 当前页码
 var total // 总页数
 var opt // 自定义选项
-var isTouch
 var $main, $secs
 
 var ppt = window.ppt = {}
@@ -97,16 +99,17 @@ function load(html) {
 function onload() {
   $main.prependTo('body')
   hljs.initHighlighting()
+
   $secs = $main.find('section')
   total = $secs.length
-  isTouch = 'ontouchmove' in document
 
   $(window).on('resize', layout)
   style() // 装饰
   layout() // 布局
   layout() // hack 再次调用
   //jump(hashPage()) // 显示首页
-  jump(1) // 显示首页
+  //jump(1) // 显示首页
+  jump(isDev ? hashPage() : 1) // dev模式则锁定页码
 
   // 侦听键盘事件 前后页切换
   // 浏览器默认退格键为历史返回

@@ -24,7 +24,6 @@ function build(file, opt) {
     '<meta name="msapplication-TileImage" content="ppt_/icon_450x450.png">',
 
     '<link rel="stylesheet" href="ppt_/animate.min.css">',
-    '<link rel="stylesheet" href="ppt_/animate.min.css">',
     '<link rel="stylesheet" href="ppt_/highlight.railscasts.css">',
     '<link rel="stylesheet" href="ppt_/ppt.css">',
   '</head>',
