@@ -4,7 +4,7 @@
 
 <img width="140" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-11%2002.09.47.png">
 &nbsp;&nbsp;<img width="403" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-10%2023.17.37.png">
-&nbsp;&nbsp;<img width="100" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_450x450.png">
+&nbsp;&nbsp;<img width="100" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_400x400.png">
 
 ## 一篇markdown，一份ppt。
 

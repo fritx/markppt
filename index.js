@@ -18,17 +18,17 @@ function build(file, opt) {
 
     // icon logo
     // https://github.com/audreyr/favicon-cheat-sheet#the-html
-    '<link rel="shortcut icon" href="ppt_/icon_450x450.png">',
-    '<link rel="apple-touch-icon-precomposed" href="ppt_/icon_450x450.png">',
+    '<link rel="shortcut icon" href="ppt_/icon_400x400.png">',
+    '<link rel="apple-touch-icon-precomposed" href="ppt_/icon_400x400.png">',
     '<meta name="msapplication-TileColor" content="#FFFFFF">',
-    '<meta name="msapplication-TileImage" content="ppt_/icon_450x450.png">',
+    '<meta name="msapplication-TileImage" content="ppt_/icon_400x400.png">',
 
     '<link rel="stylesheet" href="ppt_/animate.min.css">',
     '<link rel="stylesheet" href="ppt_/highlight.railscasts.css">',
     '<link rel="stylesheet" href="ppt_/ppt.css">',
   '</head>',
   '<body>',
-    '<img src="ppt_/icon_450x450.png">',
+    '<img src="ppt_/icon_400x400.png">',
     '<script src="ppt_/marked.min.js"></script>',
     '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
