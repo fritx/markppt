@@ -224,7 +224,8 @@ function jump(page) {
   if (!loaded[page]) {
     $secs.eq(page - 1).waitForImages(function(){
       loaded[page] = true
-      layout(page)
+      layout(page) // 布局
+      layout(page) // hack再次调用生效
       jump(page)
     })
     return
