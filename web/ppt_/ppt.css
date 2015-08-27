@@ -125,18 +125,19 @@ html, body {
   overflow: hidden;
   position: relative;
   background-color: #f8f8f8;
-}
-.dark {
   color: #fff;
+}
+.light {
+  color: #000;
 }
 img {
   max-width: 100%;
 }
 a {
-  color: rgb(100,160,255);
-}
-.dark a {
   color: rgb(160,230,255);
+}
+.light a {
+  color: rgb(30,80,170);
 }
 * {
   -ms-box-sizing: border-box;

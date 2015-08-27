@@ -153,20 +153,22 @@ function onload() {
 }
 
 function style() {
-  // todo: 智能避开难看的颜色
-  if (opt.theme === 'light') {
-    var max = 255, range = 30
-  } else if (opt.theme === 'dark') {
-    var max = 120, range = 120
-  }
-  $secs.each(function(i, sec){ // 每页随机着浅色
-    var colors = [
-      max - (Math.random()*range | 0),
-      max - (Math.random()*range | 0),
-      max - (Math.random()*range | 0)
-    ]
+  $secs.each(function(i, sec){ // 每页随机着色
+    var hsv = randomColor({
+      luminosity: opt.theme,
+      hue: opt.color,
+      format: 'hsvArray'
+    })
+    if (opt.theme === 'dark') {
+      hsv[2] = Math.min(hsv[2], 40)
+    }
+    if (opt.theme === 'bright') {
+      hsv[2] = Math.min(hsv[2], 80)
+    }
+    var rgb = HSVtoRGB(hsv)
+    console.log(rgb)
     $(sec).css({
-      'background-color': 'rgb('+ colors.join(',') +')'
+      'background-color': 'rgb('+ rgb.join(',') +')'
     })
   })
 }
@@ -265,6 +267,41 @@ function slide(page) {
         'slideOut' + dir, 'animated'
         ].join(' ')).vshow()
   }
+}
+
+
+function HSVtoRGB (hsv) {
+
+  // this doesn't work for the values of 0 and 360
+  // here's the hacky fix
+  var h = hsv[0];
+  if (h === 0) {h = 1}
+  if (h === 360) {h = 359}
+
+  // Rebase the h,s,v values
+  h = h/360;
+  var s = hsv[1]/100,
+      v = hsv[2]/100;
+
+  var h_i = Math.floor(h*6),
+    f = h * 6 - h_i,
+    p = v * (1 - s),
+    q = v * (1 - f*s),
+    t = v * (1 - (1 - f)*s),
+    r = 256,
+    g = 256,
+    b = 256;
+
+  switch(h_i) {
+    case 0: r = v, g = t, b = p;  break;
+    case 1: r = q, g = v, b = p;  break;
+    case 2: r = p, g = v, b = t;  break;
+    case 3: r = p, g = q, b = v;  break;
+    case 4: r = t, g = p, b = v;  break;
+    case 5: r = v, g = p, b = q;  break;
+  }
+  var result = [Math.floor(r*255), Math.floor(g*255), Math.floor(b*255)];
+  return result;
 }
 
 })();

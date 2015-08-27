@@ -33,7 +33,9 @@ function build(file, opt) {
     '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
     '<script src="ppt_/jquery.waitforimages.min.js"></script>',
+    '<script src="ppt_/randomColor.js"></script>',
     '<script src="ppt_/highlight.pack.js"></script>',
+
     '<script src="ppt_/ppt.js"></script>',
     '<script>ppt.setup('+ JSON.stringify(opt) +')</script>',
   '</body>',

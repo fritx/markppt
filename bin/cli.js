@@ -22,5 +22,6 @@ markppt.build(file, opt)*/
 
 // todo: 更多选项及较好的传递方式
 markppt.build(file, {
+  color: args['color'],
   theme: args['theme']
 })
