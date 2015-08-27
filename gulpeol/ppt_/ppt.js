@@ -15,6 +15,7 @@ var current = 0 // 当前页码
 var total // 总页数
 var opt // 自定义选项
 var $main, $secs
+var loaded = []
 
 var ppt = window.ppt = {}
 ppt.setup = setup
@@ -75,18 +76,7 @@ function transfer(text) {
 
 function load(html) {
   $main = $(html).addClass(opt.theme)
-
-  // 确保所有图片加载 即可调整布局
-  var $imgs = $main.find('img')
-  var numimg = $imgs.length
-  if (numimg > 0) {
-    var numload = 0
-    $imgs.on('load', function(){
-      if (++numload >= numimg) onload()
-    })
-  } else {
-    onload()
-  }
+  onload()
 
   // 提取并设置title
   var title = $main.find('h1, p').first().text() || ' '
@@ -105,8 +95,6 @@ function onload() {
 
   $(window).on('resize', layout)
   style() // 装饰
-  layout() // 布局
-  layout() // hack 再次调用
   //jump(hashPage()) // 显示首页
   //jump(1) // 显示首页
   jump(isDev ? hashPage() : 1) // dev模式则锁定页码
@@ -183,50 +171,47 @@ function style() {
   })
 }
 
-function layout() {
+function layout(page) {
+  var $sec = $secs.eq(page - 1)
   var W = window.innerWidth
   var H = window.innerHeight
   if (W <= H) { // 竖屏
-    $secs.each(function(i, sec){
-      var $div = $(sec).children('div')
-      var h = $div.outerHeight()
-      $div.css({
-        'position': 'absolute',
-        'padding-left': '10%',
-        'padding-right': '10%',
-        'top': 100*.45 + '%',
-        'margin-top': (-h/2) + 'px'
-      })
-      if (h > (H-20)/(1.5-.45)) { // 内容高度超出范围 需缩放
-        $div.css({
-          'top': '0',
-          'margin-top': '0',
-          '-webkit-transform': 'scale('+ (H-20)/h +')',
-          'transform': 'scale('+ (H-20)/h +')'
-        })
-      }
+    var $div = $sec.children('div')
+    var h = $div.outerHeight()
+    $div.css({
+      'position': 'absolute',
+      'padding-left': '10%',
+      'padding-right': '10%',
+      'top': 100*.45 + '%',
+      'margin-top': (-h/2) + 'px'
     })
+    if (h > (H-20)/(1.5-.45)) { // 内容高度超出范围 需缩放
+      $div.css({
+        'top': '0',
+        'margin-top': '0',
+        '-webkit-transform': 'scale('+ (H-20)/h +')',
+        'transform': 'scale('+ (H-20)/h +')'
+      })
+    }
   }
   else { // 横屏
-    $secs.each(function(i, sec){
-      var $div = $(sec).children('div')
-      var h = $div.outerHeight()
-      $div.css({
-        'position': 'absolute',
-        'padding-left': '20%',
-        'padding-right': '20%',
-        'top': 100*.47 + '%',
-        'margin-top': (-h/2) + 'px'
-      })
-      if (h > (H-20)/(1.5-.47)) { // 内容高度超出范围 需缩放
-        $div.css({
-          'top': '0',
-          'margin-top': '0',
-          '-webkit-transform': 'scale('+ (H-20)/h +')',
-          'transform': 'scale('+ (H-20)/h +')'
-        })
-      }
+    var $div = $sec.children('div')
+    var h = $div.outerHeight()
+    $div.css({
+      'position': 'absolute',
+      'padding-left': '20%',
+      'padding-right': '20%',
+      'top': 100*.47 + '%',
+      'margin-top': (-h/2) + 'px'
     })
+    if (h > (H-20)/(1.5-.47)) { // 内容高度超出范围 需缩放
+      $div.css({
+        'top': '0',
+        'margin-top': '0',
+        '-webkit-transform': 'scale('+ (H-20)/h +')',
+        'transform': 'scale('+ (H-20)/h +')'
+      })
+    }
   }
 }
 
@@ -234,6 +219,14 @@ function go(step) {
   jump(current + step)
 }
 function jump(page) {
+  if (!loaded[page]) {
+    $secs.eq(page - 1).waitForImages(function(){
+      loaded[page] = true
+      layout(page)
+      jump(page)
+    })
+    return
+  }
   //console.log('jump:', current, page)
   page = Math.max(1, Math.min(page, total))
   if (page === current) return
