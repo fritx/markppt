@@ -30,7 +30,6 @@ function build(file, opt) {
   '<body>',
     '<img src="ppt_/icon_400x400.png">',
     '<script src="ppt_/marked.min.js"></script>',
-    '<script src="ppt_/hammer.min.js"></script>',
     '<script src="ppt_/jquery.min.js"></script>',
     '<script src="ppt_/jquery.waitforimages.min.js"></script>',
     '<script src="ppt_/randomColor.js"></script>',

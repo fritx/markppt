@@ -136,17 +136,31 @@ function onload() {
 
   if (isTouch) {
     // 侦听swipe事件 前后页切换
-    var mc = new Hammer($main.get(0))
-    mc.get('swipe').set({
-      direction: Hammer.DIRECTION_ALL,
-      threshold: 5,
-      velocity: 0.01
+    var sx, sy, dx, dy
+    var isDragging = false
+    $(document).on('touchstart', function(e){
+      e = e.originalEvent || e
+      if ($(e.target).closest('pre, table').length > 0) {
+        return
+      }
+      isDragging = true
+      sx = e.changedTouches[0].pageX
+      sy = e.changedTouches[0].pageY
     })
-    mc.on('swipeup swipedown', function(e){
-      if (e.type === 'swipeup') {
-        go(1)
-      } else if (e.type === 'swipedown') {
-        go(-1)
+    $(document).on('touchmove', function(e){
+      e = e.originalEvent || e
+      if (!isDragging) return
+      e.preventDefault()
+    })
+    $(document).on('touchend', function(e){
+      if (!isDragging) return
+      isDragging = false
+      e = e.originalEvent || e
+      dx = e.changedTouches[0].pageX - sx
+      dy = e.changedTouches[0].pageY - sy
+      if (Math.abs(dy/dx) > 2) {
+        if (dy < -20) go(1)
+        else if (dy > 20) go(-1)
       }
     })
   }
