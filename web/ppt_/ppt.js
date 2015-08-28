@@ -84,6 +84,10 @@ function load(html) {
 
   // 添加箭头提示
   $('<div>').addClass('arrow bottom').appendTo($main)
+    .on(isTouch ? 'touchstart' : 'mousedown', function(e){
+      e.preventDefault()
+      go(1)
+    })
 }
 
 function onload() {
@@ -129,10 +133,10 @@ function onload() {
   })
 
   // 侦听lcoation.hash改变
-  window.addEventListener('hashchange', function(){
+  /*window.addEventListener('hashchange', function(){
     //console.log('on hash:', location.hash)
     jump(hashPage())
-  })
+  })*/
 
   if (isTouch) {
     // 侦听swipe事件 前后页切换
@@ -174,13 +178,13 @@ function style() {
       format: 'hsvArray'
     })
     if (opt.theme === 'dark') {
-      hsv[2] = Math.min(hsv[2], 40)
+      hsv[2] = Math.min(hsv[2], 30)
     }
     if (opt.theme === 'bright') {
-      hsv[2] = Math.min(hsv[2], 80)
+      hsv[2] = Math.min(hsv[2], 60)
     }
     var rgb = HSVtoRGB(hsv)
-    console.log(rgb)
+    //console.log(rgb)
     $(sec).css({
       'background-color': 'rgb('+ rgb.join(',') +')'
     })
@@ -256,7 +260,7 @@ function hashPage(page){
   if (arguments.length <= 0) {
     return parseInt(location.hash.substr(1)) || 1
   }
-  location.hash = '' + page
+  //location.hash = '' + page
   //console.log('set hash:', location.hash)
 }
 
