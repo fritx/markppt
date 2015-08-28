@@ -2,10 +2,26 @@
 
 // 使用visibility属性 实现占位
 $.fn.vshow = function(){
-  return $(this).css('visibility', 'visible')
+  //return $(this).css('visibility', 'visible')
+  return $(this).css({
+    position: 'absolute',
+    width: '100%',
+    left: '0',
+    right: '0',
+    top: '0',
+    bottom: '0'
+  })
 }
 $.fn.vhide = function(){
-  return $(this).css('visibility', 'hidden')
+  //return $(this).css('visibility', 'hidden')
+  return $(this).css({
+    position: 'absolute',
+    width: '100%',
+    left: '-100%',
+    right: '100%',
+    top: '0',
+    bottom: '0'
+  })
 }
 
 var isDev = /[\?&]dev/.test(location.search)

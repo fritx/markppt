@@ -172,7 +172,7 @@ section {
   bottom: 0;
   left: 0;
   right: 0;
-  visibility: hidden;
+  /* visibility: hidden; */
   font-family: "Microsoft Yahei";
   font-size: 175%;
   word-break: break-word;
