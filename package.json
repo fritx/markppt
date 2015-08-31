@@ -2,6 +2,7 @@
   "name": "markppt",
   "version": "0.0.15",
   "description": "一篇markdown，一份ppt。",
+  "license": "MIT",
   "keywords": [
     "ppt",
     "slides",
