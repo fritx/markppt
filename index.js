@@ -16,6 +16,6 @@ function build(file, opt) {
   var out = template({"opt": JSON.stringify(opt)})
 
   var dir = path.dirname(file)
-  fs.copySync(path.resolve(__dirname, 'web'), dir)
+  fs.copySync(path.resolve(__dirname, 'web', 'ppt_'), path.resolve(dir, 'ppt_'))
   fs.writeFileSync(path.resolve(dir, baseseg + '.html'), out) //=> index.html
 }
