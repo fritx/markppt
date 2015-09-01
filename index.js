@@ -11,7 +11,7 @@ function build(file, opt) {
   var baseseg = basename.split('.')[0] //=> index
   opt.url = basename
 
-  var source = fs.readFileSync(path.join(__dirname, './web/ppt_/ppt.handlebars'), {encoding: 'utf8'})
+  var source = fs.readFileSync(path.join(__dirname, './web/ppt.handlebars'), {encoding: 'utf8'})
   var template = Handlebars.compile(source, {noEscape: true})
   var out = template({"opt": JSON.stringify(opt)})
 
