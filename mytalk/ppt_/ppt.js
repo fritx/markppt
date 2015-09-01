@@ -84,6 +84,10 @@ function load(html) {
 
   // 添加箭头提示
   $('<div>').addClass('arrow bottom').appendTo($main)
+    .on(isTouch ? 'touchstart' : 'mousedown', function(e){
+      e.preventDefault()
+      go(1)
+    })
 }
 
 function onload() {
@@ -129,44 +133,60 @@ function onload() {
   })
 
   // 侦听lcoation.hash改变
-  window.addEventListener('hashchange', function(){
+  /*window.addEventListener('hashchange', function(){
     //console.log('on hash:', location.hash)
     jump(hashPage())
-  })
+  })*/
 
   if (isTouch) {
     // 侦听swipe事件 前后页切换
-    var mc = new Hammer($main.get(0))
-    mc.get('swipe').set({
-      direction: Hammer.DIRECTION_ALL,
-      threshold: 5,
-      velocity: 0.01
+    var sx, sy, dx, dy
+    var isDragging = false
+    $(document).on('touchstart', function(e){
+      e = e.originalEvent || e
+      if ($(e.target).closest('pre, table').length > 0) {
+        return
+      }
+      isDragging = true
+      sx = e.changedTouches[0].pageX
+      sy = e.changedTouches[0].pageY
     })
-    mc.on('swipeup swipedown', function(e){
-      if (e.type === 'swipeup') {
-        go(1)
-      } else if (e.type === 'swipedown') {
-        go(-1)
+    $(document).on('touchmove', function(e){
+      e = e.originalEvent || e
+      if (!isDragging) return
+      e.preventDefault()
+    })
+    $(document).on('touchend', function(e){
+      if (!isDragging) return
+      isDragging = false
+      e = e.originalEvent || e
+      dx = e.changedTouches[0].pageX - sx
+      dy = e.changedTouches[0].pageY - sy
+      if (Math.abs(dy/dx) > 2) {
+        if (dy < -20) go(1)
+        else if (dy > 20) go(-1)
       }
     })
   }
 }
 
 function style() {
-  // todo: 智能避开难看的颜色
-  if (opt.theme === 'light') {
-    var max = 255, range = 30
-  } else if (opt.theme === 'dark') {
-    var max = 120, range = 120
-  }
-  $secs.each(function(i, sec){ // 每页随机着浅色
-    var colors = [
-      max - (Math.random()*range | 0),
-      max - (Math.random()*range | 0),
-      max - (Math.random()*range | 0)
-    ]
+  $secs.each(function(i, sec){ // 每页随机着色
+    var hsv = randomColor({
+      luminosity: opt.theme,
+      hue: opt.color,
+      format: 'hsvArray'
+    })
+    if (opt.theme === 'dark') {
+      hsv[2] = Math.min(hsv[2], 30)
+    }
+    if (opt.theme === 'bright') {
+      hsv[2] = Math.min(hsv[2], 60)
+    }
+    var rgb = HSVtoRGB(hsv)
+    //console.log(rgb)
     $(sec).css({
-      'background-color': 'rgb('+ colors.join(',') +')'
+      'background-color': 'rgb('+ rgb.join(',') +')'
     })
   })
 }
@@ -222,7 +242,8 @@ function jump(page) {
   if (!loaded[page]) {
     $secs.eq(page - 1).waitForImages(function(){
       loaded[page] = true
-      layout(page)
+      layout(page) // 布局
+      layout(page) // hack再次调用生效
       jump(page)
     })
     return
@@ -239,7 +260,7 @@ function hashPage(page){
   if (arguments.length <= 0) {
     return parseInt(location.hash.substr(1)) || 1
   }
-  location.hash = '' + page
+  //location.hash = '' + page
   //console.log('set hash:', location.hash)
 }
 
@@ -265,6 +286,41 @@ function slide(page) {
         'slideOut' + dir, 'animated'
         ].join(' ')).vshow()
   }
+}
+
+
+function HSVtoRGB (hsv) {
+
+  // this doesn't work for the values of 0 and 360
+  // here's the hacky fix
+  var h = hsv[0];
+  if (h === 0) {h = 1}
+  if (h === 360) {h = 359}
+
+  // Rebase the h,s,v values
+  h = h/360;
+  var s = hsv[1]/100,
+      v = hsv[2]/100;
+
+  var h_i = Math.floor(h*6),
+    f = h * 6 - h_i,
+    p = v * (1 - s),
+    q = v * (1 - f*s),
+    t = v * (1 - (1 - f)*s),
+    r = 256,
+    g = 256,
+    b = 256;
+
+  switch(h_i) {
+    case 0: r = v, g = t, b = p;  break;
+    case 1: r = q, g = v, b = p;  break;
+    case 2: r = p, g = v, b = t;  break;
+    case 3: r = p, g = q, b = v;  break;
+    case 4: r = t, g = p, b = v;  break;
+    case 5: r = v, g = p, b = q;  break;
+  }
+  var result = [Math.floor(r*255), Math.floor(g*255), Math.floor(b*255)];
+  return result;
 }
 
 })();
