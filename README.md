@@ -6,6 +6,9 @@
 &nbsp;&nbsp;<img width="403" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-10%2023.17.37.png">
 &nbsp;&nbsp;<img width="100" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_400x400.png">
 
+<img width="280" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233430.png">
+&nbsp;&nbsp;<img width="280" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233453.png">
+
 ## 一篇markdown，一份ppt。
 
 - 一个读取markdown文件，生成网页slides/ppt的工具
@@ -17,19 +20,22 @@
 
 点击查看演示
 
-- [gulp-eol bug之总结 (light)](http://fritx.github.io/markppt/gulpeol-light/gulp-eol-bug.html)
-- [gulp-eol bug之总结](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.html)
-- [My Talk](http://fritx.github.io/markppt/mytalk/talk.html)
+- [node.js技术交流会 (dark)](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.bright.html)
+- [gulp-eol bug之总结 (bright)](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.html)
+- [My Talk (bright)](http://fritx.github.io/markppt/mytalk/talk.html)
+- [Kid.js (light)](http://fritx.github.io/markppt/kidjs/kidjs.html)
 
-```
+```plain
 $ npm i -g markppt   # 从npm安装
 $ markppt mytalk/talk.md   # markdown路径
 $ markppt mytalk/talk.md --theme=light   # 指定css主题
+$ markppt mytalk/talk.md --theme=bright   # 默认取dark
+$ markppt mytalk/talk.md --color=green   # 指定主色调
 ```
 
 将会在[原目录](https://github.com/fritx/markppt/tree/master/examples/mytalk/)
 
-```
+```plain
 - mytalk/
   - Desert.jpg
   - talk.md
@@ -37,7 +43,7 @@ $ markppt mytalk/talk.md --theme=light   # 指定css主题
 
 生成`ppt_`文件夹，和一份`talk.html`，打开即可[浏览ppt](http://fritx.github.io/markppt/mytalk/talk.html)
 
-```
+```plain
 - mytalk/
   - ppt_/ (√)
   - Desert.jpg
