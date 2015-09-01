@@ -2,12 +2,12 @@
 
 项目源码 <https://github.com/fritx/markppt>
 
-<img width="140" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-11%2002.09.47.png">
-&nbsp;&nbsp;<img width="403" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/2015-04-10%2023.17.37.png">
-&nbsp;&nbsp;<img width="100" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_400x400.png">
+<img width="161" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901234930.png">
+&nbsp;&nbsp;<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901235103.png">
+&nbsp;&nbsp;<img width="140" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_400x400.png">
 
-<img width="280" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233430.png">
-&nbsp;&nbsp;<img width="280" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233453.png">
+<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233430.png">
+&nbsp;&nbsp;<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233453.png">
 
 ## 一篇markdown，一份ppt。
 
@@ -20,7 +20,7 @@
 
 点击查看演示
 
-- [node.js技术交流会 (dark)](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.bright.html)
+- [node.js技术交流会 (dark)](http://fritx.github.io/markppt/nodejs-talk/)
 - [gulp-eol bug之总结 (bright)](http://fritx.github.io/markppt/gulpeol/gulp-eol-bug.html)
 - [My Talk (bright)](http://fritx.github.io/markppt/mytalk/talk.html)
 - [Kid.js (light)](http://fritx.github.io/markppt/kidjs/kidjs.html)
