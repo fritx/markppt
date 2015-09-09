@@ -1,5 +1,7 @@
 # markppt
 
+[![Join the chat at https://gitter.im/fritx/markppt](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fritx/markppt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 项目源码 <https://github.com/fritx/markppt>
 
 <img width="161" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901234930.png">
