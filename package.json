@@ -1,6 +1,6 @@
 {
   "name": "markppt",
-  "version": "0.0.17",
+  "version": "0.0.17-1",
   "description": "一篇markdown，一份ppt。",
   "license": "MIT",
   "keywords": [
@@ -9,7 +9,7 @@
     "markdown",
     "markppt"
   ],
-  "repository": "git@github.com:frtix/markppt.git",
+  "repository": "git@github.com:fritx/markppt.git",
   "main": "index.js",
   "bin": {
     "markppt": "bin/cli.js"

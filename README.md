@@ -1,8 +1,8 @@
 # markppt
 
-[![Join the chat at https://gitter.im/fritx/markppt](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fritx/markppt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-项目源码 <https://github.com/fritx/markppt>
+<a href="http://badge.fury.io/js/markppt"><img src="https://badge.fury.io/js/markppt.svg" alt="npm version" height="20"></a>
+&nbsp;&nbsp;<a href="http://badge.fury.io/gh/fritx%2Fmarkppt"><img src="https://badge.fury.io/gh/fritx%2Fmarkppt.svg" alt="GitHub version" height="20"></a>
+&nbsp;&nbsp;<a href="https://gitter.im/fritx/markppt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/fritx/markppt" height="20"></a>
 
 <img width="161" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901234930.png">
 &nbsp;&nbsp;<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901235103.png">
