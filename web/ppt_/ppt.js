@@ -20,14 +20,20 @@ var loaded = []
 var ppt = window.ppt = {}
 ppt.setup = setup
 
+function onerror(err) {
+  console.error('ppt onerror', err)
+  let searchParams = new URLSearchParams()
+  searchParams.set('url', 'ppt_/oops.md')
+  location.search = searchParams.toString()
+}
+
 function setup(options) {
   opt = options
   $.ajax({
     type: 'GET',
     url: opt.url,
     error: function(err){
-      // todo: 404
-      console.error('load:', err)
+      onerror(err)
     },
     success: function(text){
       text = text.trim() // 移除前后的空白/异常字符
