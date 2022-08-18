@@ -49,3 +49,7 @@ $ markppt mytalk/talk.md --color=green   # 指定主色调
   - talk.md
   - talk.html (√)
 ```
+
+常见问题解答
+
+- [运行无报错输出，但是打开html空白 #8](https://github.com/fritx/markppt/issues/8)

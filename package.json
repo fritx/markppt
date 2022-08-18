@@ -1,6 +1,6 @@
 {
   "name": "markppt",
-  "version": "0.0.17-1",
+  "version": "0.0.18",
   "description": "一篇markdown，一份ppt。",
   "license": "MIT",
   "files": ["bin", "web"],
@@ -15,9 +15,15 @@
   "bin": {
     "markppt": "bin/cli.js"
   },
+  "scripts": {
+    "prepublishOnly": "dos2unix bin/**"
+  },
   "dependencies": {
     "fs-extra": "^0.23.1",
     "handlebars": "^3.0.3",
     "minimist": "^1.1.3"
+  },
+  "devDependencies": {
+    "dos2unix-cli": "^1.0.1"
   }
 }
