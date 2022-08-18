@@ -3,6 +3,7 @@
   "version": "0.0.17-1",
   "description": "一篇markdown，一份ppt。",
   "license": "MIT",
+  "files": ["bin", "web"],
   "keywords": [
     "ppt",
     "slides",
