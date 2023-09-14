@@ -12,6 +12,7 @@ if (!file) {
 
 // todo: 更多选项及较好的传递方式
 markppt.build(file, {
+  arbitrary: args['arbitrary'],
   color: args['color'],
   theme: args['theme']
 })

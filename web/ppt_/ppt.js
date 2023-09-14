@@ -29,15 +29,34 @@ function onerror(err) {
 
 function setup(options) {
   opt = options
+  var url = opt.url
+  if (opt.arbitrary) {
+    url = new URL(location.href).searchParams.get('url') || url
+  }
   $.ajax({
     type: 'GET',
-    url: opt.url,
+    url: url,
     error: function(err){
       onerror(err)
     },
     success: function(text){
       text = text.trim() // 移除前后的空白/异常字符
+      var worker
+      if (opt.arbitrary) {
+        // xxx: hacking `<base>` sequence
+        worker = new Worker('ppt_/censorship.worker.js')
+        $('<base>').attr('href', url).appendTo('head')
+      }
       load(transfer(text))
+      if (opt.arbitrary) {
+        console.log(new Date(), 'cencorship start')
+        worker.onmessage = function (e) {
+          var legal = e.data
+          console.log(new Date(), 'cencorship result:', legal)
+          if (!legal) onerror(new Error('Illegal content.'))
+        }
+        worker.postMessage(text)
+      }
     }
   })
 }

@@ -53,3 +53,11 @@ $ markppt mytalk/talk.md --color=green   # 指定主色调
 常见问题解答
 
 - [运行无报错输出，但是打开html空白 #8](https://github.com/fritx/markppt/issues/8)
+
+高级功能：支持url参数指定任意md路径（自带内容审查机制，不合规则跳转Oops..）
+
+```sh
+$ markppt index.md --arbitrary   # index.md为默认页面 文件不存在也ok
+# 然后可指定任意md路径，如 http://xxx/?url=xxx/talk.md
+# 或其他绝对路径，如 http://xxx/?url=https://raw.githubusercontent.com/fritx/markppt/dev/examples/mytalk/talk.md
+```
