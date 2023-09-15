@@ -45,6 +45,17 @@ function setup(options) {
       if (opt.arbitrary) {
         // xxx: hacking `<base>` sequence
         worker = new Worker('ppt_/censorship.worker.js')
+        $('img').each(function (i, el) {
+          $(el).attr('src', el.src)
+        })
+        var iconHref
+        $('link[rel*=icon]').each(function (i, el) {
+          $(el).attr('href', el.href)
+          iconHref = el.href
+        })
+        $('meta[name*=Image]').each(function (i, el) {
+          $(el).attr('content', iconHref)
+        })
         $('<base>').attr('href', url).appendTo('head')
       }
       load(transfer(text))
