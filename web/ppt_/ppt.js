@@ -74,6 +74,9 @@ function setup(options) {
 
 function transfer(text) {
   var out = marked(text)
+  if (opt.arbitrary) {
+    out = DOMPurify.sanitize(out)
+  }
   var $root = $('<root>').append(out)
   var $children = $root.children()
   var $tmp = $('<tmp>')
