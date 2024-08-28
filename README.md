@@ -4,9 +4,9 @@
 &nbsp;&nbsp;<a href="http://badge.fury.io/gh/fritx%2Fmarkppt"><img src="https://badge.fury.io/gh/fritx%2Fmarkppt.svg" alt="GitHub version" height="20"></a>
 &nbsp;&nbsp;<a href="https://gitter.im/fritx/markppt?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/fritx/markppt" height="20"></a>
 
-<img width="161" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901234930.png">&nbsp;&nbsp;<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901235103.png">&nbsp;&nbsp;<img width="140" src="https://raw.githubusercontent.com/fritx/markppt/dev/artwork/icon_400x400.png">
+<img width="161" src="https://blog.fritx.me/p/projects/markppt/screenshots/20150901234930.png">&nbsp;&nbsp;<img width="320" src="https://blog.fritx.me/p/projects/markppt/screenshots/20150901235103.png">&nbsp;&nbsp;<img width="140" src="https://blog.fritx.me/p/projects/markppt/artwork/icon_400x400.png">
 
-<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233430.png">&nbsp;&nbsp;<img width="320" src="https://raw.githubusercontent.com/fritx/markppt/dev/screenshots/20150901233453.png">
+<img width="320" src="https://blog.fritx.me/p/projects/markppt/screenshots/20150901233430.png">&nbsp;&nbsp;<img width="320" src="https://blog.fritx.me/p/projects/markppt/screenshots/20150901233453.png">
 
 ## 一篇markdown，一份ppt。
 
@@ -60,4 +60,5 @@ $ markppt mytalk/talk.md --color=green   # 指定主色调
 $ markppt index.md --arbitrary   # index.md为默认页面 文件不存在也ok
 # 然后可指定任意md路径，如 http://xxx/?url=xxx/talk.md
 # 或其他绝对路径，如 http://xxx/?url=https://raw.githubusercontent.com/fritx/markppt/dev/examples/mytalk/talk.md
+# 或 http://xxx/?url=https://fastly.jsdelivr.net/gh/fritx/markppt@dev/examples/mytalk/talk.md
 ```
